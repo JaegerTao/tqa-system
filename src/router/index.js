@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Login from '../views/Login.vue'
 import StuHome from '../views/StudentHome/StuHome.vue'
+import TeacherHome from '../views/TeacherHome/TeacherHome.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{ path: '/', redirect: Login},
 	{ path: '/login', component: Login},
-	{ path: '/stuhome', component: StuHome }
+	{ path: '/stuhome', component: StuHome },
+	{ path: '/teacherhome', component: TeacherHome }
 ]
 
 const router = new VueRouter({
