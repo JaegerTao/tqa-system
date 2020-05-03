@@ -85,7 +85,7 @@
 	}
 
 	.login-box {
-		width: 450px;
+		width: 50%;
 		height: 350px;
 		background-color: #FFFFFF;
 		border: 3px;
@@ -125,8 +125,9 @@
 
 	.login_form {
 		position: absolute;
+		left: 10%;
 		bottom: 0;
-		width: 100%;
+		width: 80%;
 		padding: 0 20px;
 		box-sizing: border-box;
 	}
