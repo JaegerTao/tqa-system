@@ -25,11 +25,11 @@
 						<i class="el-icon-view"></i>
 						<span slot="title">我的课程</span>
 					</el-menu-item>
-					<el-menu-item index="/teacher/appraise" @click="saveNavState('/appraise')">
+					<el-menu-item index="/teacher/appraise" @click="saveNavState('/teacher/appraise')">
 						<i class="el-icon-edit-outline"></i>
 						<span slot="title">教师互评</span>
 					</el-menu-item>
-					<el-menu-item index="/teacher/changepwd" @click="saveNavState('/changepwd')">
+					<el-menu-item index="/teacher/changepwd" @click="saveNavState('/teacher/changepwd')">
 						<i class="el-icon-unlock"></i>
 						<span slot="title">修改密码</span>
 					</el-menu-item>
