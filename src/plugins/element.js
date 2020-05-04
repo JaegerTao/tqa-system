@@ -9,7 +9,6 @@ import {
 	Header,
 	Main,
 	Footer,
-	Table,
 	Aside,
 	Menu,
 	Submenu,
@@ -32,7 +31,6 @@ Vue.use(Header)
 Vue.use(Main)
 Vue.use(Aside)
 Vue.use(Footer)
-Vue.use(Table)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItemGroup)

@@ -9,39 +9,18 @@
 			</div>
 			<div class="header-name">
 				<span>您好，{{ name }}同学</span>
-				<el-button type="info" >修改密码</el-button>
+				<el-button type="info" @click="changePwd">修改密码</el-button>
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
 		</el-header>
 		
 		<el-main>
-			<div >
-				<center> 可评价课程列表 </center>
-				
-			</div>
-			<el-table
-				:data="tableData"
-				style="width: 20%"
-				:row-class-name="tableRowClassName" >
-				<el-table-column
-				  prop="date"
-				  label="日期"
-				  width="180">
-				</el-table-column>
-				<el-table-column
-				  prop="name"
-				  label="姓名"
-				  width="180">
-				</el-table-column>
-				<el-table-column
-				  prop="address"
-				  label="地址">
-				</el-table-column>
-			</el-table>
+			<!-- 路由占位符 -->
+			<router-view></router-view>
 		</el-main>
 		
 		<el-footer>
-			
+			<center> 软件工程 </center>
 		</el-footer>
 	</el-container>
 </template>
@@ -49,39 +28,20 @@
 <script>
 	export default {
 		methods: {
+			changePwd() {
+				this.$router.push('/changepwd');
+			},
 			logout() {
 				window.sessionStorage.clear();
 				this.$router.push('/login');
 			},
-			tableRowClassName({row, rowIndex}) {
-				if (rowIndex === 1) {
-				  return 'warning-row';
-				} else if (rowIndex === 3) {
-				  return 'success-row';
-				}
-				return '';
+			appraise() {
+				this.$router.push('/appraise');
 			}
 		},
 		data() {
 			return {
 				name : "蒋滔",
-				tableData: [{
-				  date: '2016-05-02',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄',
-				}, {
-				  date: '2016-05-04',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄'
-				}, {
-				  date: '2016-05-01',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄',
-				}, {
-				  date: '2016-05-03',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄'
-				}]
 			}
 		},
 		
@@ -134,14 +94,6 @@
 				font-size: 20px;
 			}
 		}
-	}
-	
-	.el-table .warning-row {
-		background: oldlace;
-	}
-
-	.el-table .success-row {
-		background: #f0f9eb;
 	}
 	
 	.el-footer {

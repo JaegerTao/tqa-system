@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 //学生端路由
 import StuHome from '../views/StudentHome/StuHome.vue'
-import Comments from '../components/Student/Comments.vue'//学生评价页面
 //教师端路由
 import TeacherHome from '../views/TeacherHome/TeacherHome.vue'
 import FileManage from '../components/Teacher/FileManage.vue'//档案查看
@@ -12,6 +11,7 @@ import TeacherCourse from '../components/Teacher/TeacherCourse.vue'//教师查�
 //可公用路由
 import Appraise from '../components/Common/Appraise.vue'//评价列表
 import ChangePwd from '../components/Common/ChangePwd.vue'//修改密码
+import AppraiseEdit from '../components/Common/AppraiseEdit.vue'//评价详情页面
 
 Vue.use(VueRouter)
 
@@ -25,7 +25,18 @@ const routes = [{
 	},
 	{
 		path: '/stuhome',
-		component: StuHome
+		component: StuHome,
+		redirect: '/appraise',
+		children: [{
+			path: '/appraise',
+			component: Appraise
+		},{
+			path: '/changepwd',
+			component: ChangePwd
+		},{
+			path: '/appraiseedit',
+			component: AppraiseEdit
+		}]
 	},
 	{
 		path: '/teacherhome',
