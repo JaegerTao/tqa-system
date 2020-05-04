@@ -3,21 +3,21 @@
 </template>
 
 <script>
-	export default {
-		methods: {
-			changePwd() {
-				this.$router.push('/stuhome');
-			}
-		},
-		data() {
-			return {
-				
-			}
-		},
-		
-	};
+export default {
+  methods: {
+    changePwd () {
+      this.$router.push('/stuhome')
+    }
+  },
+  data () {
+    return {
+
+    }
+  }
+
+}
 </script>
 
 <style lang="less" scoped>
-	
+
 </style>

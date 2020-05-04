@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- 面包屑导航区 -->
-		<el-breadcrumb separator="/">
+		<el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item>我的档案</el-breadcrumb-item>
 		</el-breadcrumb>
 		<!-- 卡片视图 -->
@@ -28,32 +28,32 @@
 			</el-table>
 		</el-card>
 		<el-button>
-			
+
 		</el-button>
 	</div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				fileList: [{
-					name: '蒋滔',
-					username: '2017110414',
-					gender: '男',
-					worktime: '20171104',
-					birthday: '19980220',
-					personid: '510603199802201510',
-					education: '本科',
-					graduate: '四川师范大学',
-					political: '党员',
-					job: '教授',
-					jobtime: '20171104',
-					teachtime: '50'
-				}]
-			}
-		},
-	};
+export default {
+  data () {
+    return {
+      fileList: [{
+        name: '蒋滔',
+        username: '2017110414',
+        gender: '男',
+        worktime: '20171104',
+        birthday: '19980220',
+        personid: '510603199802201510',
+        education: '本科',
+        graduate: '四川师范大学',
+        political: '党员',
+        job: '教授',
+        jobtime: '20171104',
+        teachtime: '50'
+      }]
+    }
+  }
+}
 </script>
 
 <style>

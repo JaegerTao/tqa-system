@@ -45,31 +45,31 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				name: '蒋滔',
-				activePath: '/filemanager',//被激活的路由地址
-			}
-		},
-		created(){
-			this.activePath = window.sessionStorage.getItem('activePath')
-		},
-		methods: {
-			//退出登录
-			logout() {
-				window.sessionStorage.clear();
-				this.$router.push('/login');
-			},
-			
-			//保存链接激活状态
-			saveNavState(activePath){
-				window.sessionStorage.setItem('activePath', activePath)
-				this.activePath = activePath
-			},
-		}
-		
-	};
+export default {
+  data () {
+    return {
+      name: '蒋滔',
+      activePath: '/filemanager'// 被激活的路由地址
+    }
+  },
+  created () {
+    this.activePath = window.sessionStorage.getItem('activePath')
+  },
+  methods: {
+    // 退出登录
+    logout () {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
+    },
+
+    // 保存链接激活状态
+    saveNavState (activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
+    }
+  }
+
+}
 </script>
 
 <style lang="less" scoped>

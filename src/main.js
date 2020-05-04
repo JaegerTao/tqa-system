@@ -2,11 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
-//导入全局样式表
+// 导入全局样式表
 import './assets/css/global.css'
 
 import axios from 'axios'
+axios.defaults.baseURL = '/api'
+import md5 from 'js-md5'
+
 Vue.prototype.$http = axios
+
+Vue.prototype.$md5 = md5
 
 Vue.config.productionTip = false
 

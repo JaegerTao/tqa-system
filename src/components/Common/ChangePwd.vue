@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-button @click="returnHome"> 返回首页 </el-button>
-		<center> 
+		<center>
 			<span> 修改密码 </span>
 			<div class="oldPwd">
 				<span> 原密码： </span>
@@ -21,16 +21,16 @@
 </template>
 
 <script>
-	export default {
-		methods: {
-			returnHome() {
-				this.$router.push('/stuhome');
-			},
-			saveButton() {
-				
-			}
-		}
-	};
+export default {
+  methods: {
+    returnHome () {
+      this.$router.push('/stuhome')
+    },
+    saveButton () {
+
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -39,7 +39,7 @@
 			margin-top: 30px;
 		}
 	}
-	
+
 	.saveButton {
 		margin-top: 30px;
 	}

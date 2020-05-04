@@ -59,38 +59,38 @@
 				</template>
 			</el-table-column>
 		</el-table>
-	
+
 	</div>
 </template>
 
 <script>
-	export default {
-		methods: {
-			tableRowClassName({row, rowIndex}) {
-				if (rowIndex === 1) {
-				  return 'warning-row';
-				} else if (rowIndex === 3) {
-				  return 'success-row';
-				}
-				return '';
-			},
-			comments() {
-				this.$router.push('/appraiseedit');
-			}
-		},
-		data() {
-			return {
-				tableData: [{
-					plan: '201901',
-					college: '计算机科学学院',
-					classType: '理论课',
-					classCategory: '实践教学环节',
-					classCode: '191049',
-					className: '软件工程',
-					teacher: '001-李四',
-					classNum: '20171104',
-					campus: '成龙校区',
-				}, {
+export default {
+  methods: {
+    tableRowClassName ({ row, rowIndex }) {
+      if (rowIndex === 1) {
+				  return 'warning-row'
+      } else if (rowIndex === 3) {
+				  return 'success-row'
+      }
+      return ''
+    },
+    comments () {
+      this.$router.push('/appraiseedit')
+    }
+  },
+  data () {
+    return {
+      tableData: [{
+        plan: '201901',
+        college: '计算机科学学院',
+        classType: '理论课',
+        classCategory: '实践教学环节',
+        classCode: '191049',
+        className: '软件工程',
+        teacher: '001-李四',
+        classNum: '20171104',
+        campus: '成龙校区'
+      }, {
 				  plan: '201902',
 				  college: '计算机科学学院',
 				  classType: '理论课',
@@ -99,12 +99,12 @@
 				  className: 'c语言',
 				  teacher: '001-李四',
 				  classNum: '20171104',
-				  campus: '成龙校区',
-				}]
-			}
-		},
-		
-	};
+				  campus: '成龙校区'
+      }]
+    }
+  }
+
+}
 </script>
 
 <style>
@@ -112,11 +112,11 @@
 		font-size: 20px;
 		padding: 20px;
 	}
-	
+
 	.el-table .warning-row {
 		background: oldlace;
 	}
-	
+
 	.el-table .success-row {
 		background: #f0f9eb;
 	}
