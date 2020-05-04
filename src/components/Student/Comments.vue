@@ -7,18 +7,12 @@
 				</div>
 				<span> 教学质量评估管理系统学生端 </span>
 			</div>
-			<div class="header-name">
-				<span>您好，{{ name }}同学</span>
-				<el-button type="info" >修改密码</el-button>
-				<el-button type="info" @click="logout">退出登录</el-button>
-			</div>
+			<el-button type="info" >修改密码</el-button>
+			<el-button type="info" @click="logout">退出</el-button>
 		</el-header>
 		
 		<el-main>
-			<div >
-				<center> 可评价课程列表 </center>
-				
-			</div>
+			<el-button type="info" @click="returnHome">返回首页</el-button>
 			<el-table
 				:data="tableData"
 				style="width: 20%"
@@ -53,6 +47,9 @@
 				window.sessionStorage.clear();
 				this.$router.push('/login');
 			},
+			returnHome() {
+				this.$router.push('/StuHome');
+			},
 			tableRowClassName({row, rowIndex}) {
 				if (rowIndex === 1) {
 				  return 'warning-row';
@@ -63,26 +60,25 @@
 			}
 		},
 		data() {
-			return {
-				name : "蒋滔",
-				tableData: [{
-				  date: '2016-05-02',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄',
-				}, {
-				  date: '2016-05-04',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄'
-				}, {
-				  date: '2016-05-01',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄',
-				}, {
-				  date: '2016-05-03',
-				  name: '王小虎',
-				  address: '上海市普陀区金沙江路 1518 弄'
-				}]
-			}
+		  return {
+			tableData: [{
+			  date: '2016-05-02',
+			  name: '王小虎',
+			  address: '上海市普陀区金沙江路 1518 弄',
+			}, {
+			  date: '2016-05-04',
+			  name: '王小虎',
+			  address: '上海市普陀区金沙江路 1518 弄'
+			}, {
+			  date: '2016-05-01',
+			  name: '王小虎',
+			  address: '上海市普陀区金沙江路 1518 弄',
+			}, {
+			  date: '2016-05-03',
+			  name: '王小虎',
+			  address: '上海市普陀区金沙江路 1518 弄'
+			}]
+		  }
 		},
 		
 	};
@@ -103,9 +99,6 @@
 				margin-left: 20px;
 				font-size: 28px;
 				color: #ffffff;
-			}
-			button {
-				margin-left: 20px;
 			}
 		}
 	}
