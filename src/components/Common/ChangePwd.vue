@@ -1,19 +1,22 @@
 <template>
 	<div>
-		<el-button @click="returnHome"> 返回首页 </el-button>
 		<center> 
 			<span> 修改密码 </span>
+			<div class="id">
+				<span> 身份证号： </span>
+				<el-input placeholder="请输入身份证号码" v-model="id"></el-input>
+			</div>
 			<div class="oldPwd">
 				<span> 原密码： </span>
-				<input type="password" class="oldpwd" />
+				<el-input placeholder="请输入旧密码" v-model="oldpwd" show-password></el-input>
 			</div>
 			<div class="newPwd">
 				<span> 新密码： </span>
-				<input type="password" class="newpwd" />
+				<el-input placeholder="请输入新密码" v-model="newpwd" show-password></el-input>
 			</div>
 			<div class="configPwd">
 				<span> 确认密码： </span>
-				<input type="password" class="configpwd" />
+				<el-input placeholder="确认密码" v-model="configpwd" show-password></el-input>
 			</div>
 			<el-button class="saveButton"> 保存 </el-button>
 		</center>
@@ -23,11 +26,16 @@
 <script>
 	export default {
 		methods: {
-			returnHome() {
-				this.$router.push('/stuhome');
-			},
 			saveButton() {
 				
+			}
+		},
+		data() {
+			return {
+				id: '',
+				oldpwd: '',
+				newpwd: '',
+				configpwd: ''
 			}
 		}
 	};
@@ -36,11 +44,21 @@
 <style lang="less" scoped>
 	center {
 		> div {
-			margin-top: 30px;
+			margin-top: 50px;
 		}
 	}
 	
+	span {
+		display: -moz-inline-box;
+		display: inline-block;
+		width: 150px;
+	}
+	
+	.el-input {
+		width: 200px;
+	}
+	
 	.saveButton {
-		margin-top: 30px;
+		margin-top: 60px;
 	}
 </style>

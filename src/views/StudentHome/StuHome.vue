@@ -5,7 +5,10 @@
 				<div class="avatar_box">
 					<img src="../../assets/image/logoITElite.jpg" alt="" />
 				</div>
-				<span> 教学质量评估管理系统学生端 </span>
+				<span> 教学质量评估管理系统-学生端 </span>
+				<center>
+					<el-button type="info" @click="returnHome">返回学生端首页</el-button>
+				</center>
 			</div>
 			<div class="header-name">
 				<span>您好，{{ name }}同学</span>
@@ -28,6 +31,9 @@
 <script>
 	export default {
 		methods: {
+			returnHome() {
+				this.$router.push('/stuhome');
+			},
 			changePwd() {
 				this.$router.push('/changepwd');
 			},
@@ -69,6 +75,7 @@
 			}
 		}
 	}
+	
 	.avatar_box {
 		height: 30px;
 		width: 30px;

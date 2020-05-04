@@ -1,65 +1,66 @@
 <template>
 	<div>
-		<center>可评价列表</center>
-		<el-table
-			:data="tableData"
-			style="width: 90%"
-			:row-class-name="tableRowClassName" >
-			<el-table-column
-			  prop="plan"
-			  label="执行计划"
-			  width="100">
-			</el-table-column>
-			<el-table-column
-			  prop="college"
-			  label="学院"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="classType"
-			  label="课程类型"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="classCategory"
-			  label="课程类别"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="classCode"
-			  label="课程代码"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="className"
-			  label="课程名称"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="teacher"
-			  label="任课教师"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="classNum"
-			  label="教学班号"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-			  prop="campus"
-			  label="行课校区"
-			  width="120">
-			</el-table-column>
-			<el-table-column
-				fixed="right"
-				label="操作"
-				width="180">
-				<template slot-scope="scope">
-					<el-button type="text" size="small" @click="comments"> 评价 </el-button>
-				</template>
-			</el-table-column>
-		</el-table>
-	
+		<center>
+			<span class="tag"> 可评价列表 </span>
+			<el-table
+				:data="tableData"
+				style="width: 90%"
+				:row-class-name="tableRowClassName" >
+				<el-table-column
+				  prop="plan"
+				  label="执行计划"
+				  width="100">
+				</el-table-column>
+				<el-table-column
+				  prop="college"
+				  label="学院"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="classType"
+				  label="课程类型"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="classCategory"
+				  label="课程类别"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="classCode"
+				  label="课程代码"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="className"
+				  label="课程名称"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="teacher"
+				  label="任课教师"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="classNum"
+				  label="教学班号"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+				  prop="campus"
+				  label="行课校区"
+				  width="120">
+				</el-table-column>
+				<el-table-column
+					fixed="right"
+					label="操作"
+					width="180">
+					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="comments"> 评价 </el-button>
+					</template>
+				</el-table-column>
+			</el-table>
+		</center>
 	</div>
 </template>
 
@@ -108,9 +109,10 @@
 </script>
 
 <style>
-	center {
-		font-size: 20px;
-		padding: 20px;
+	.tag {
+		margin-bottom: 35px;
+		margin-top: 35px;
+		display: block;
 	}
 	
 	.el-table .warning-row {
