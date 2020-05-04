@@ -1,9 +1,11 @@
 <template>
-	<div>
-		<el-button type="info" @click="logout">退出</el-button>
-		
-	</div>
-	
+	<el-container class="home-container">
+		<el-header>
+			<el-button type="info" @click="logout">退出</el-button>
+		</el-header>
+		<el-main>Main</el-main>
+		<el-footer>Footer</el-footer>
+	</el-container>
 </template>
 
 <script>
@@ -17,29 +19,16 @@
 	};
 </script>
 
-<el-container>
-		<el-header>Header</el-header>
-		<el-main>Main</el-main>
-		<el-footer>Footer</el-footer>
-	</el-container>
-
 <style lang="less" scoped>
-	.el-header, .el-footer {
-		background-color: #B3C0D1;
-		color: #333;
-		text-align: center;
-		line-height: 60px;
+	.el-header {
+		background-color: #55557f;
+	}
+
+	.el-footer {
+		background-color: #55557f;
 	}
 	
-	.el-main {
-		background-color: #E9EEF3;
-		color: #333;
-		text-align: center;
-		line-height: 160px;
+	.home-container{
+		height: 100%;
 	}
-	
-	body > .el-container {
-		margin-bottom: 40px;
-	}
-	  
 </style>
