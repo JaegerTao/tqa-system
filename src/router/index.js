@@ -7,7 +7,9 @@ import StuHome from '../views/StudentHome/StuHome.vue'
 //教师端路由
 import TeacherHome from '../views/TeacherHome/TeacherHome.vue'
 import FileManage from '../components/Teacher/FileManage.vue'//档案查看
-import TeacherCourse from '../components/Teacher/TeacherCourse.vue'//教师查看自己的评价结果
+import TeacherCourse from '../components/Teacher/TeacherCourse.vue'//教师查看自己的评价结果列表
+import TeacherCourseCheck from '../components/Teacher/TeacherCourseCheck.vue'
+
 //可公用路由
 import Appraise from '../components/Common/Appraise.vue'//评价列表
 import ChangePwd from '../components/Common/ChangePwd.vue'//修改密码
@@ -49,10 +51,13 @@ const routes = [{
 			path: '/teachercourse',
 			component: TeacherCourse
 		},{
-			path: '/appraise',
+			path: '/teacher/teachercoursecheck',
+			component: TeacherCourseCheck
+		},{
+			path: '/teacher/appraise',
 			component: Appraise
 		},{
-			path: '/changepwd',
+			path: '/teacher/changepwd',
 			component: ChangePwd
 		}]
 	}
