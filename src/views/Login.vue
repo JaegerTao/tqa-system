@@ -67,11 +67,12 @@
 					if(!valid) return; //验证不通过
 					//发起登陆请求
 					
+					
 					//暂默认登录成功
 					this.$message.success("登录成功");
 					//服务器传回token，保存到sessionStorage(会话期间存储),只在当前网站打开期间生效
 					window.sessionStorage.setItem("token", 2017110414);
-					this.$router.push("/stuhome");
+					this.$router.push("/teacherhome");
 				})
 			}
 		}
