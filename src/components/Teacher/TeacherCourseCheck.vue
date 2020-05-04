@@ -1,5 +1,5 @@
 <template>
-	<h3>评价</h3>
+	<h3>课程评价详情</h3>
 </template>
 
 <script>

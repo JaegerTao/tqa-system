@@ -2,7 +2,7 @@
 	<div>
 		<!-- 面包屑导航区 -->
 		<el-breadcrumb separator="/">
-			<el-breadcrumb-item>我的档案</a></el-breadcrumb-item>
+			<el-breadcrumb-item>我的档案</el-breadcrumb-item>
 		</el-breadcrumb>
 		<!-- 卡片视图 -->
 		<el-card class="box-card">
@@ -27,6 +27,9 @@
 				<el-table-column label="累计授课时间" prop="teachtime"></el-table-column>
 			</el-table>
 		</el-card>
+		<el-button>
+			
+		</el-button>
 	</div>
 </template>
 
@@ -41,10 +44,10 @@
 					worktime: '20171104',
 					birthday: '19980220',
 					personid: '510603199802201510',
-					education: '学士',
+					education: '本科',
 					graduate: '四川师范大学',
 					political: '党员',
-					job: '教员',
+					job: '教授',
 					jobtime: '20171104',
 					teachtime: '50'
 				}]
