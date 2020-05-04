@@ -14,22 +14,22 @@
 		</el-header>
 		<el-container class="main-container">
 			<!-- 侧边栏 -->
-			<el-aside>
+			<el-aside width="15%">
 				<!-- 侧边栏菜单 -->
-				<el-menu router="true" default-active="/filemanager">
-					<el-menu-item index="/filemanager">
+				<el-menu router :default-active="activePath">
+					<el-menu-item index="/filemanager" @click="saveNavState('/filemanager')">
 						<i class="el-icon-menu"></i>
-						<span slot="title">档案管理</span>
+						<span slot="title">我的档案</span>
 					</el-menu-item>
-					<el-menu-item index="/teachercourse">
+					<el-menu-item index="/teachercourse" @click="saveNavState('/teachercourse')">
 						<i class="el-icon-view"></i>
 						<span slot="title">我的课程</span>
 					</el-menu-item>
-					<el-menu-item index="/appraise">
+					<el-menu-item index="/appraise" @click="saveNavState('/appraise')">
 						<i class="el-icon-edit-outline"></i>
 						<span slot="title">教师互评</span>
 					</el-menu-item>
-					<el-menu-item index="/changepwd">
+					<el-menu-item index="/changepwd" @click="saveNavState('/changepwd')">
 						<i class="el-icon-unlock"></i>
 						<span slot="title">修改密码</span>
 					</el-menu-item>
@@ -48,15 +48,27 @@
 	export default {
 		data() {
 			return {
-				name: "蒋滔",
+				name: '蒋滔',
+				activePath: '/filemanager',//被激活的路由地址
 			}
 		},
+		created(){
+			this.activePath = window.sessionStorage.getItem('activePath')
+		},
 		methods: {
+			//退出登录
 			logout() {
 				window.sessionStorage.clear();
 				this.$router.push('/login');
-			}
+			},
+			
+			//保存链接激活状态
+			saveNavState(activePath){
+				window.sessionStorage.setItem('activePath', activePath)
+				this.activePath = activePath
+			},
 		}
+		
 	};
 </script>
 
@@ -124,10 +136,10 @@
 		height: 80%;
 		margin-top: 10px;
 		margin-bottom: 10px;
-
-		>el-aside {
-			border-right: 1px solid #d6d6d6;
-			width: 15%;
+	}
+	.el-aside{
+		.el-menu{
+			height: 100%;
 		}
 	}
 </style>
