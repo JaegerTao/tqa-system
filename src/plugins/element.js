@@ -6,7 +6,11 @@ import {
 	Input,
 	Tabs,
 	TabPane,
-	Message
+	Message,
+	Container,
+	Header,
+	Main,
+	Footer
 } from 'element-ui'
 
 Vue.use(Button)
@@ -15,5 +19,9 @@ Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Main)
+Vue.use(Footer)
 //弹框组件挂载到Vue原型对象上，每个组件可以通过this访问到$message进行弹框提示
 Vue.prototype.$message = Message
