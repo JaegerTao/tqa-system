@@ -18,7 +18,7 @@
 				<span> 确认密码： </span>
 				<el-input placeholder="确认密码" v-model="configpwd" show-password></el-input>
 			</div>
-			<el-button class="saveButton"> 保存密码 </el-button>
+			<el-button class="saveButton"> 保存 </el-button>
 		</center>
 	</div>
 </template>
