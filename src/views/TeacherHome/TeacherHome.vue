@@ -37,10 +37,10 @@
 			</el-aside>
 			<el-main>
 				<!-- 路由占位符 -->
-				<router-view></router-view>
+				<router-view :pathheader="pathheader"></router-view>
 			</el-main>
 		</el-container>
-		<el-footer height="10%">Footer</el-footer>
+		<el-footer height="5%">Footer</el-footer>
 	</el-container>
 </template>
 
@@ -48,6 +48,7 @@
 export default {
   data () {
     return {
+		pathheader: '/teacher',
       name: '蒋滔',
       activePath: '/teacher/filemanager' // 被激活的路由地址
     }

@@ -1,14 +1,11 @@
 <template>
 	<el-container class="home-container">
 		<el-header>
-			<div>
+			<div class="header-title">
 				<div class="avatar_box">
 					<img src="../../assets/image/logoITElite.jpg" alt="" />
 				</div>
-				<span> 教学质量评估管理系统-学生端 </span>
-				<center>
-					<el-button type="info" @click="returnHome">返回学生端首页</el-button>
-				</center>
+				<span> 教学质量评估-学生端 </span>
 			</div>
 			<div class="header-name">
 				<span>您好，{{ name }}同学</span>
@@ -19,7 +16,7 @@
 
 		<el-main>
 			<!-- 路由占位符 -->
-			<router-view></router-view>
+			<router-view :pathheader="pathheader"></router-view>
 		</el-main>
 
 		<el-footer>
@@ -31,9 +28,6 @@
 <script>
 	export default {
 		methods: {
-			returnHome() {
-				this.$router.push('/stuhome');
-			},
 			changePwd() {
 				this.$router.push('/stu/changepwd');
 			},
@@ -47,7 +41,8 @@
 		},
 		data() {
 			return {
-				name : "蒋滔",
+				pathheader: '/stu',
+				name : "蒋滔"
 			}
 		},
 		
@@ -63,15 +58,30 @@
 		justify-content: space-between;
 		align-items: center;
 		> div{
-			display: flex;
-			align-items: center;
-			span{
-				margin-left: 20px;
-				font-size: 28px;
-				color: #ffffff;
-			}
 			button {
 				margin-left: 20px;
+			}
+		}
+		.header-title {
+			display: flex;
+			align-items: center;
+		
+			span {
+				margin-left: 20px;
+				font-size: 25px;
+				color: #ffffff;
+				height: 30px;
+				overflow: hidden;
+			}
+		}
+		.header-name {
+			align-items: center;
+			> span {
+				font-size: 20px;
+				color: #ffffff;
+				margin-right: 30px;
+				height: 30px;
+				overflow: hidden;
 			}
 		}
 	}

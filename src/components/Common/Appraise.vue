@@ -26,7 +26,7 @@
 				</el-table-column>
 				<el-table-column fixed="right" label="评价" width="120">
 					<template slot-scope="scope">
-						<el-button type="primary" size="mini" @click="comments"> 评价 </el-button>
+						<el-button type="warning" size="mini" @click="comments"> 评价 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -39,6 +39,7 @@
 
 <script>
 	export default {
+		props:['pathheader'],
 		data() {
 			return {
 				tableData: [{
@@ -70,6 +71,9 @@
 				}
 			}
 		},
+		created() {
+			
+		},
 		methods: {
 			tableRowClassName({
 				row,
@@ -83,8 +87,18 @@
 				return ''
 			},
 			comments() {
-				this.$router.push('/teacher/appraiseedit')
-			}
+				this.$router.push( this.pathheader + '/appraiseedit')
+			},
+			// 监听pageSize改变的时间
+			handleSizeChange(newSize) {
+				// console.log(newSize)
+				this.pageinfo.pagesize = newSize
+			},
+			// 监听页码值改变的事件
+			handleCurrentChange(newPage) {
+				// console.log(newPage)
+				this.pageinfo.pageindex = newPage
+			},
 		}
 	}
 </script>
