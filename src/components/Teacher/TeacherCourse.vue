@@ -36,7 +36,7 @@
 			      @size-change="handleSizeChange"
 			      @current-change="handleCurrentChange"
 			      :current-page="pageinfo.pageindex"
-			      :page-sizes="[5, 10, 20]"
+			      :page-sizes="[5, 10, 15]"
 			      :page-size="pageinfo.pagesize"
 			      layout="total, sizes, prev, pager, next, jumper"
 			      :total="pageinfo.pageSum">
@@ -119,5 +119,8 @@ export default {
 <style>
 	.el-pagination{
 		margin-top: 15px;
+	}
+	.el-card{
+		height: ;
 	}
 </style>
