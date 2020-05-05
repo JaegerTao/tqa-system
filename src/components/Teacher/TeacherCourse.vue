@@ -7,7 +7,8 @@
 		</el-breadcrumb>
 		<el-card class="box-card">
 			<!-- 列表区 -->
-			<el-table :data="courseList" stripe style="width: 100%" max-height="80%" :default-sort="{prop:'plan', order: 'descending'}">
+			<el-table :data="courseList" stripe style="width: 100%" max-height="80%" :default-sort="{prop:'plan', order: 'descending'}"
+			 :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 				<el-table-column prop="plan" label="执行计划" width="120" sortable>
 				</el-table-column>
 				<el-table-column prop="college" label="学院" width="120">
@@ -32,94 +33,88 @@
 					</template>
 				</el-table-column>
 			</el-table>
-			<el-pagination
-			      @size-change="handleSizeChange"
-			      @current-change="handleCurrentChange"
-			      :current-page="pageinfo.pageindex"
-			      :page-sizes="[5, 10, 15]"
-			      :page-size="pageinfo.pagesize"
-			      layout="total, sizes, prev, pager, next, jumper"
-			      :total="pageinfo.pageSum">
-			    </el-pagination>
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageinfo.pageindex"
+			 :page-sizes="[5, 10, 15]" :page-size="pageinfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pageinfo.pageSum">
+			</el-pagination>
 		</el-card>
 	</div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      courseList: [{
-        plan: '201901',
-        college: '计算机科学学院',
-        courseType: '理论课',
-        courseCategory: '实践教学环节',
-        courseCode: '191049',
-        courseName: '软件工程',
-        teacher: '张三',
-        classid: '20171104',
-        campus: '成龙校区'
-      }, {
-        plan: '201902',
-        college: '计算机科学学院',
-        courseType: '理论课',
-        courseCategory: '实践教学环节',
-        courseCode: '191049',
-        courseName: '软件工程',
-        teacher: '张三',
-        classid: '20171104',
-        campus: '成龙校区'
-      }, {
-        plan: '201902',
-        college: '计算机科学学院',
-        courseType: '理论课',
-        courseCategory: '实践教学环节',
-        courseCode: '191049',
-        courseName: '软件工程',
-        teacher: '张三',
-        classid: '20171104',
-        campus: '成龙校区'
-      }],
+	export default {
+		data() {
+			return {
+				courseList: [{
+					plan: '201901',
+					college: '计算机科学学院',
+					courseType: '理论课',
+					courseCategory: '实践教学环节',
+					courseCode: '191049',
+					courseName: '软件工程',
+					teacher: '张三',
+					classid: '20171104',
+					campus: '成龙校区'
+				}, {
+					plan: '201902',
+					college: '计算机科学学院',
+					courseType: '理论课',
+					courseCategory: '实践教学环节',
+					courseCode: '191049',
+					courseName: '软件工程',
+					teacher: '张三',
+					classid: '20171104',
+					campus: '成龙校区'
+				}, {
+					plan: '201902',
+					college: '计算机科学学院',
+					courseType: '理论课',
+					courseCategory: '实践教学环节',
+					courseCode: '191049',
+					courseName: '软件工程',
+					teacher: '张三',
+					classid: '20171104',
+					campus: '成龙校区'
+				}],
 
-      pageinfo: {
-        pageSum: 1, // 数据总数
-        pageindex: 1, // 当前页码
-        pagesize: 5// 当前每页多少条
-      }
+				pageinfo: {
+					pageSum: 1, // 数据总数
+					pageindex: 1, // 当前页码
+					pagesize: 5 // 当前每页多少条
+				}
 
-    }
-  },
-  created () {
-    this.pageinfo.pageSum = this.courseList.length
-  },
-  methods: {
-    // 请求课程数据列表，按页码
-    getCourseList () {
+			}
+		},
+		created() {
+			this.pageinfo.pageSum = this.courseList.length
+		},
+		methods: {
+			// 请求课程数据列表，按页码
+			getCourseList() {
 
-    },
+			},
 
-    // 监听pageSize改变的时间
-    handleSizeChange (newSize) {
-      console.log(newSize)
-      this.pageinfo.pagesize = newSize
-    },
-    // 监听页码值改变的事件
-    handleCurrentChange (newPage) {
-      console.log(newPage)
-      this.pageinfo.pageindex = newPage
-    },
-    // 跳转到评价详情
-    checkAppraise () {
-      this.$router.push('/teacher/teachercoursecheck')
-    }
-  }
-}
+			// 监听pageSize改变的时间
+			handleSizeChange(newSize) {
+				console.log(newSize)
+				this.pageinfo.pagesize = newSize
+			},
+			// 监听页码值改变的事件
+			handleCurrentChange(newPage) {
+				console.log(newPage)
+				this.pageinfo.pageindex = newPage
+			},
+			// 跳转到评价详情
+			checkAppraise() {
+				this.$router.push('/teacher/teachercoursecheck')
+			}
+		}
+	}
 </script>
 
 <style>
-	.el-pagination{
+	.el-pagination {
 		margin-top: 15px;
 	}
-	.el-card{
-	}
+
+	.el-card {}
 </style>

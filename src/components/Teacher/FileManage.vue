@@ -27,9 +27,6 @@
 				<el-table-column label="累计授课时间" prop="teachtime"></el-table-column>
 			</el-table>
 		</el-card>
-		<el-button>
-
-		</el-button>
 	</div>
 </template>
 
@@ -63,5 +60,8 @@ export default {
 
 	.el-card {
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+	}
+	.el-table{
+		margin: 10px;
 	}
 </style>

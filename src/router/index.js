@@ -8,7 +8,8 @@ import StuHome from '../views/StudentHome/StuHome.vue'
 import TeacherHome from '../views/TeacherHome/TeacherHome.vue'
 import FileManage from '../components/Teacher/FileManage.vue'// 档案查看
 import TeacherCourse from '../components/Teacher/TeacherCourse.vue'// 教师查看自己的评价结果列表
-import TeacherCourseCheck from '../components/Teacher/TeacherCourseCheck.vue'
+import TeacherCourseCheck from '../components/Teacher/TeacherCourseCheck.vue'//教师查看评价结果
+import TeacherAdvice from '../components/Teacher/TeacherAdvice.vue'// 教师查看评价建议
 
 // 可公用路由
 import Appraise from '../components/Common/Appraise.vue'// 评价列表
@@ -43,16 +44,19 @@ const routes = [{
 {
   path: '/teacherhome',
   component: TeacherHome,
-  redirect: '/filemanager',
+  redirect: '/teacher/filemanager',
   children: [{
-    path: '/filemanager',
+    path: '/teacher/filemanager',
     component: FileManage
   }, {
-    path: '/teachercourse',
+    path: '/teacher/teachercourse',
     component: TeacherCourse
   }, {
     path: '/teacher/teachercoursecheck',
     component: TeacherCourseCheck
+  }, {
+    path: '/teacher/teacheradvice',
+    component: TeacherAdvice
   }, {
     path: '/teacher/appraise',
     component: Appraise

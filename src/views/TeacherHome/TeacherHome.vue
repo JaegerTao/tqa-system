@@ -17,11 +17,11 @@
 			<el-aside width="15%">
 				<!-- 侧边栏菜单 -->
 				<el-menu router :default-active="activePath">
-					<el-menu-item index="/filemanager" @click="saveNavState('/filemanager')">
+					<el-menu-item index="/teacher/filemanager" @click="saveNavState('/teacher/filemanager')">
 						<i class="el-icon-menu"></i>
 						<span slot="title">我的档案</span>
 					</el-menu-item>
-					<el-menu-item index="/teachercourse" @click="saveNavState('/teachercourse')">
+					<el-menu-item index="/teacher/teachercourse" @click="saveNavState('/teacher/teachercourse')">
 						<i class="el-icon-view"></i>
 						<span slot="title">我的课程</span>
 					</el-menu-item>
@@ -49,11 +49,12 @@ export default {
   data () {
     return {
       name: '蒋滔',
-      activePath: '/filemanager'// 被激活的路由地址
+      activePath: '/teacher/filemanager' // 被激活的路由地址
     }
   },
   created () {
     this.activePath = window.sessionStorage.getItem('activePath')
+	if(!this.activePath) this.activePath = '/teacher/filemanager'
   },
   methods: {
     // 退出登录
