@@ -26,7 +26,7 @@
 				</el-table>
 				<el-row>
 					<el-col :span="14">
-						<el-button type="info">查看建议</el-button>
+						<el-button type="info" @click='goAdvice'>查看建议</el-button>
 					</el-col>
 					<el-col :span="10">
 						<div class="sumscore">总分：{{ totalScore }}</div>
@@ -137,6 +137,11 @@
 				],
 				totalScore: 100
 			}
+		},
+		methods:{
+			goAdvice(){
+				
+			},
 		}
 	}
 </script>
