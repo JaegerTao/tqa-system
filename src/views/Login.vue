@@ -68,14 +68,11 @@ export default {
         // 发起登陆请求
         const pwdmd5 = this.$md5(this.loginForm.password)// md5加密密码
         // console.log(pwdmd5)
-		this.$http.post('/login', {
-			username: this.loginForm.username,
-			password: pwdmd5
-		}).then(function(res){
-			console.log(res)
-		}).catch(function(err){
-			console.log(err)
-		})
+		// this.$http.post('/login', this.loginForm).then(function(res){
+		// 	console.log(res)
+		// }).catch(function(err){
+		// 	console.log(err)
+		// })
 		
         // 暂默认登录成功
         this.$message.success('登录成功')
