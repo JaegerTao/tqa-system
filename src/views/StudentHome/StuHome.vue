@@ -16,12 +16,12 @@
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
 		</el-header>
-		
+
 		<el-main>
 			<!-- 路由占位符 -->
 			<router-view></router-view>
 		</el-main>
-		
+
 		<el-footer>
 			<center> 软件工程 </center>
 		</el-footer>
@@ -84,7 +84,7 @@
 		padding: 10px;
 		box-shadow: 0 0 10px #ddd;
 		background-color: #FFFFFF;
-	
+
 		img {
 			height: 100%;
 			width: 100%;
@@ -92,21 +92,21 @@
 			background-color: #eee;
 		}
 	}
-	
+
 	.el-main {
-		
+
 		> div {
-			
+
 			center {
 				font-size: 20px;
 			}
 		}
 	}
-	
+
 	.el-footer {
 		background-color: #55557f;
 	}
-	
+
 	.home-container{
 		height: 100%;
 	}

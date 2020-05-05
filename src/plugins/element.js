@@ -20,9 +20,10 @@ import {
 	Table,
 	TableColumn,
 	Pagination,
+	Tabs,
+	TabPane,
 	Row,
 	Col
-	
 } from 'element-ui'
 
 Vue.use(Button)
@@ -44,7 +45,9 @@ Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Pagination)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.use(Row)
 Vue.use(Col)
-//弹框组件挂载到Vue原型对象上，每个组件可以通过this访问到$message进行弹框提示
+// 弹框组件挂载到Vue原型对象上，每个组件可以通过this访问到$message进行弹框提示
 Vue.prototype.$message = Message

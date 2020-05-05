@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- 面包屑导航区 -->
-		<el-breadcrumb separator="/">
+		<el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item>我的课程</el-breadcrumb-item>
 			<el-breadcrumb-item>课程列表</el-breadcrumb-item>
 		</el-breadcrumb>
@@ -46,74 +46,74 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				courseList: [{
-					plan : '201901',
-					college : '计算机科学学院',
-					courseType: '理论课',
-					courseCategory: '实践教学环节',
-					courseCode: '191049',
-					courseName: '软件工程',
-					teacher: '张三',
-					classid: '20171104',
-					campus: '成龙校区'
-				},{
-					plan : '201902',
-					college : '计算机科学学院',
-					courseType: '理论课',
-					courseCategory: '实践教学环节',
-					courseCode: '191049',
-					courseName: '软件工程',
-					teacher: '张三',
-					classid: '20171104',
-					campus: '成龙校区'
-				},{
-					plan : '201902',
-					college : '计算机科学学院',
-					courseType: '理论课',
-					courseCategory: '实践教学环节',
-					courseCode: '191049',
-					courseName: '软件工程',
-					teacher: '张三',
-					classid: '20171104',
-					campus: '成龙校区'
-				}],
-				
-				pageinfo: {
-					pageSum: 1,//数据总数
-					pageindex: 1,//当前页码
-					pagesize: 5//当前每页多少条
-				}
-				
-			}
-		},
-		created() {
-			this.pageinfo.pageSum = this.courseList.length
-		},
-		methods:{
-			//请求课程数据列表，按页码
-			getCourseList(){
-				
-			},
-			
-			//监听pageSize改变的时间
-			handleSizeChange(newSize){
-				console.log(newSize)
-				this.pageinfo.pagesize = newSize
-			},
-			//监听页码值改变的事件
-			handleCurrentChange(newPage){
-				console.log(newPage)
-				this.pageinfo.pageindex = newPage
-			},
-			//跳转到评价详情
-			checkAppraise(){
-				this.$router.push('/teacher/teachercoursecheck')
-			}
-		}
-	};
+export default {
+  data () {
+    return {
+      courseList: [{
+        plan: '201901',
+        college: '计算机科学学院',
+        courseType: '理论课',
+        courseCategory: '实践教学环节',
+        courseCode: '191049',
+        courseName: '软件工程',
+        teacher: '张三',
+        classid: '20171104',
+        campus: '成龙校区'
+      }, {
+        plan: '201902',
+        college: '计算机科学学院',
+        courseType: '理论课',
+        courseCategory: '实践教学环节',
+        courseCode: '191049',
+        courseName: '软件工程',
+        teacher: '张三',
+        classid: '20171104',
+        campus: '成龙校区'
+      }, {
+        plan: '201902',
+        college: '计算机科学学院',
+        courseType: '理论课',
+        courseCategory: '实践教学环节',
+        courseCode: '191049',
+        courseName: '软件工程',
+        teacher: '张三',
+        classid: '20171104',
+        campus: '成龙校区'
+      }],
+
+      pageinfo: {
+        pageSum: 1, // 数据总数
+        pageindex: 1, // 当前页码
+        pagesize: 5// 当前每页多少条
+      }
+
+    }
+  },
+  created () {
+    this.pageinfo.pageSum = this.courseList.length
+  },
+  methods: {
+    // 请求课程数据列表，按页码
+    getCourseList () {
+
+    },
+
+    // 监听pageSize改变的时间
+    handleSizeChange (newSize) {
+      console.log(newSize)
+      this.pageinfo.pagesize = newSize
+    },
+    // 监听页码值改变的事件
+    handleCurrentChange (newPage) {
+      console.log(newPage)
+      this.pageinfo.pageindex = newPage
+    },
+    // 跳转到评价详情
+    checkAppraise () {
+      this.$router.push('/teacher/teachercoursecheck')
+    }
+  }
+}
 </script>
 
 <style>
