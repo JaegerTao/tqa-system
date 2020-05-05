@@ -29,15 +29,17 @@ const routes = [{
 {
   path: '/stuhome',
   component: StuHome,
-  redirect: '/appraise',
+  redirect: '/stu/appraise',
   children: [{
-    path: '/appraise',
+    path: '/stu/appraise',
+	name: 'StuAppraise',
     component: Appraise
   }, {
-    path: '/changepwd',
+    path: '/stu/changepwd',
     component: ChangePwd
   }, {
-    path: '/appraiseedit',
+    path: '/stu/appraiseedit',
+	name: 'StuAppraiseEdit',
     component: AppraiseEdit
   }]
 },
@@ -59,7 +61,12 @@ const routes = [{
     component: TeacherAdvice
   }, {
     path: '/teacher/appraise',
+	name: 'TeacherAppraise',
     component: Appraise
+  }, {
+    path: '/teacher/appraiseedit',
+	name: 'TeacherAppraiseEdit',
+    component: AppraiseEdit
   }, {
     path: '/teacher/changepwd',
     component: ChangePwd

@@ -114,6 +114,7 @@
 <style>
 	.el-pagination {
 		margin-top: 15px;
+		margin-left: 15px;
 	}
 
 	.el-card {}

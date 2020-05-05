@@ -35,14 +35,14 @@
 				this.$router.push('/stuhome');
 			},
 			changePwd() {
-				this.$router.push('/changepwd');
+				this.$router.push('/stu/changepwd');
 			},
 			logout() {
 				window.sessionStorage.clear();
 				this.$router.push('/login');
 			},
 			appraise() {
-				this.$router.push('/appraise');
+				this.$router.push('/stu/appraise');
 			}
 		},
 		data() {
