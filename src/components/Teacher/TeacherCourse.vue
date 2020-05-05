@@ -121,6 +121,5 @@ export default {
 		margin-top: 15px;
 	}
 	.el-card{
-		height: ;
 	}
 </style>
