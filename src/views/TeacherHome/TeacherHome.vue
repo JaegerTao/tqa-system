@@ -40,7 +40,10 @@
 				<router-view :pathheader="pathheader"></router-view>
 			</el-main>
 		</el-container>
-		<el-footer height="5%">Footer</el-footer>
+		<el-footer height="5%">
+			<span>Made by Team 4 : JaegerTao</span>
+			<span>教师端</span>
+		</el-footer>
 	</el-container>
 </template>
 
@@ -128,6 +131,14 @@ export default {
 
 	.el-footer {
 		background-color: #55557f;
+		border-radius: 5px 5px 0px 0px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row-reverse;
+		> span{
+			color: #FFFFFF;
+		}
 	}
 
 	.home-container {

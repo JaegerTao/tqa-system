@@ -1,25 +1,24 @@
 <template>
 	<div>
-		<center> 
+		<el-card>
 			<span> 修改密码 </span>
-			<div class="id">
-				<span> 身份证号： </span>
-				<el-input placeholder="请输入身份证号码" v-model="id"></el-input>
-			</div>
-			<div class="oldPwd">
-				<span> 原密码： </span>
-				<el-input placeholder="请输入旧密码" v-model="oldpwd" show-password></el-input>
-			</div>
-			<div class="newPwd">
-				<span> 新密码： </span>
-				<el-input placeholder="请输入新密码" v-model="newpwd" show-password></el-input>
-			</div>
-			<div class="configPwd">
-				<span> 确认密码： </span>
-				<el-input placeholder="确认密码" v-model="configpwd" show-password></el-input>
-			</div>
+			<el-form label-position="right">
+				<el-form-item label="原密码">
+					<el-input placeholder="请输入原密码" v-model="oldpwd" show-password></el-input>
+				</el-form-item>
+				
+				<el-form-item label="新密码">
+					<el-input placeholder="请输入新密码" v-model="newpwd" show-password></el-input>
+				</el-form-item>
+				
+				<el-form-item label="确认密码">
+					<el-input placeholder="确认密码" v-model="configpwd" show-password></el-input>
+				</el-form-item>
+				
+				
+			</el-form>
 			<el-button class="saveButton"> 保存 </el-button>
-		</center>
+		</el-card>
 	</div>
 </template>
 
@@ -27,7 +26,7 @@
 	export default {
 		methods: {
 			saveButton() {
-				
+
 			}
 		},
 		data() {
@@ -42,22 +41,16 @@
 </script>
 
 <style lang="less" scoped>
-	center {
-		> div {
-			margin-top: 50px;
-		}
-	}
-	
 	span {
 		display: -moz-inline-box;
 		display: inline-block;
 		width: 150px;
 	}
-	
+
 	.el-input {
 		width: 200px;
 	}
-	
+
 	.saveButton {
 		margin-top: 60px;
 	}

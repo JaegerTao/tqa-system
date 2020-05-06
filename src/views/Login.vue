@@ -67,12 +67,12 @@ export default {
         if (!valid) return // 验证不通过
         // 发起登陆请求
         const pwdmd5 = this.$md5(this.loginForm.password)// md5加密密码
-        // console.log(pwdmd5)
-		// this.$http.post('/login', this.loginForm).then(function(res){
-		// 	console.log(res)
-		// }).catch(function(err){
-		// 	console.log(err)
-		// })
+        console.log(pwdmd5)
+		this.$http.post('/login', this.loginForm).then(function(res){
+			console.log(res)
+		}).catch(function(err){
+			console.log(err)
+		})
 		
         // 暂默认登录成功
         this.$message.success('登录成功')
@@ -80,8 +80,10 @@ export default {
         window.sessionStorage.setItem('token', this.loginForm.username)
         if (this.loginForm.username == '2017110414') {
           this.$router.push('/teacherhome')
-        } else {
+        } else if (this.loginForm.username == '201711041'){
           this.$router.push('/stuhome')
+        } else if (this.loginForm.username == '20171104'){
+          this.$router.push('/spvhome')
         }
       })
     }

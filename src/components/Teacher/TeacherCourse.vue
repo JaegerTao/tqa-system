@@ -86,11 +86,18 @@
 		},
 		created() {
 			this.pageinfo.pageSum = this.courseList.length
+			this.getCourseList()
 		},
 		methods: {
 			// 请求课程数据列表，按页码
 			getCourseList() {
-
+				this.$http.get('/courseManage/listCourse')
+					.then(res => {
+						console.log(res)
+					})
+					.catch(err => {
+						console.log(err)
+					})
 			},
 
 			// 监听pageSize改变的时间

@@ -6,7 +6,8 @@ import './plugins/element.js'
 import './assets/css/global.css'
 
 import axios from 'axios'
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = process.env.NODE_ENV === 'production'? 'http://loacalhost:8080':'/api'
+
 import md5 from 'js-md5'
 
 Vue.prototype.$http = axios

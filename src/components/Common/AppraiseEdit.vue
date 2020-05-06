@@ -31,7 +31,7 @@
 			<el-form :model="optionForm" ref="optionFormRef" :rules="rules">
 				<el-table class="table-appraise" :data="commentData" border style="width: 700px" :header-cell-style="{'text-align':'center'}"
 				 :cell-style="{'text-align':'center'}" size='small'>
-					<el-table-column prop="num" label="序号" width="60">
+					<el-table-column type="index" width="60">
 					</el-table-column>
 					<el-table-column prop="content" label="评价内容" width="200">
 					</el-table-column>
@@ -97,51 +97,56 @@
 					classNum: '20171104',
 					campus: '成龙校区',
 				}],
-
-				commentData: [{
-					num: '1',
-					content: '讲课思路和概念清楚，容易听懂',
-				}, {
-					num: '2',
-					content: '教师上课认真，课堂纪律好'
-				}, {
-					num: '3',
-					content: '使用现代化的教学手段'
-				}, {
-					num: '4',
-					content: '批改作业认真，辅导答疑热情'
-				}, {
-					num: '5',
-					content: '上课不迟到，不提前下课，不随便停课'
-				}, {
-					num: '6',
-					content: '教材和辅导材料适用'
-				}],
 				
-				optionForm:{
+				//评价内容列表
+				commentData: [],
+
+				optionForm: {
 					scores: [],
 					advicetxt: ''
 				},
-				
-				rules:{
-					scores:[
-						{ required: true, message: '请选择所有选项', trigger: 'change' }
-					]
+
+				rules: {
+					scores: [{
+						required: true,
+						message: '请选择所有选项',
+						trigger: 'change'
+					}]
 				}
 			}
 		},
+		created() {
+			this.getAppraiseList()
+		},
 		methods: {
 			//提交评价
-			submitAdvice(){
+			submitAdvice() {
 				this.$refs.optionFormRef.validate(valid => {
 					if (!valid) return // 验证不通过
-					if(this.optionForm.scores.length < 6) {
+					if (this.optionForm.scores.length < 6) {
 						this.$message.error('请选完选项哦')
 						return
 					}
 					this.$message.success('提交成功')
 					this.$router.go(-1);
 				})
+			},
+			getAppraiseList() {
+				let rid = 0
+				if (this.pathheader == '/stu') {
+					rid = 3
+				} else if (this.pathheader == '/teacher') {
+					rid = 2
+				} else if (this.pathheader == '/spv'){
+					rid = 4
+				}
+				this.$http.get('/evaluationItem/list?rid=' + rid)
+					.then(res => {
+						this.commentData = res.data.data
+					})
+					.catch(err => {
+						console.log(err)
+					})
 			}
 		}
 
@@ -177,18 +182,20 @@
 		margin-left: 50%;
 		transform: translate(-50%);
 		font-size: 14px;
-		
-		> .el-row{
+
+		>.el-row {
 			margin-top: -10px;
 		}
-		.advice-title{
+
+		.advice-title {
 			margin-top: 15px;
 		}
 	}
-	
-	.btn-submit{
+
+	.btn-submit {
 		margin-left: 50%;
-		>.el-button{
+
+		>.el-button {
 			transform: translate(-50%);
 		}
 	}
