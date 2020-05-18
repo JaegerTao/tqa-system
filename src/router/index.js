@@ -19,6 +19,7 @@ import SupervisorHome from '../views/SupervisorHome/SupervisorHome.vue'
 import Appraise from '../components/Common/Appraise.vue' // 评价列表
 import ChangePwd from '../components/Common/ChangePwd.vue' // 修改密码
 import AppraiseEdit from '../components/Common/AppraiseEdit.vue' // 评价详情页面
+import ForgetPwd from '../components/Common/ForgetPwd.vue' //忘记密码
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,10 @@ const routes = [{
 		component: Login
 	},
 	{
+		path: '/initpwd',
+		component: ForgetPwd
+	},
+	{//学生页面路由
 		path: '/stuhome',
 		component: StuHome,
 		redirect: '/stu/appraise',
@@ -47,7 +52,7 @@ const routes = [{
 			component: AppraiseEdit
 		}]
 	},
-	{
+	{//教师页面路由
 		path: '/teacherhome',
 		component: TeacherHome,
 		redirect: '/teacher/filemanager',
@@ -75,7 +80,8 @@ const routes = [{
 			path: '/teacher/changepwd',
 			component: ChangePwd
 		}]
-	}, {
+	}, 
+	{//督导页面路由
 		path: '/spvhome',
 		component: SupervisorHome,
 		redirect: '/spv/appraise',
@@ -103,7 +109,7 @@ router.beforeEach((to, from, next) => {
 	// to 将要访问的路径
 	// from 从哪个路径跳转而来
 	// next 是一个函数，表示放行 next()放行、next('/login') 强制跳转
-	if (to.path === '/login') return next() // 登录页直接放行
+	if (to.path === '/login' || to.path === '/initpwd') return next() // 登录页直接放行
 	// 获取token
 	const tokenStr = window.sessionStorage.getItem('token')
 	if (!tokenStr) return next('/login')

@@ -5,28 +5,27 @@
 			<el-breadcrumb-item>可评价列表</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-card class="box-card">
-			<el-table :data="tableData" style="width: 100%" stripe :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
-				<el-table-column prop="plan" label="执行计划" width="100">
+			<el-table :v-loading="loading" :data="appraiseList" style="width: 100%" stripe :header-cell-style="{'text-align':'center'}"
+			 :cell-style="{'text-align':'center'}">
+				<el-table-column prop="number" label="课程号" width="100">
 				</el-table-column>
-				<el-table-column prop="college" label="学院" width="120">
+				<el-table-column prop="courseDep" label="学院" width="150">
 				</el-table-column>
-				<el-table-column prop="classType" label="课程类型">
+				<el-table-column prop="courseType" label="课程类别" width="220">
 				</el-table-column>
-				<el-table-column prop="classCategory" label="课程类别" width="120">
+				<el-table-column prop="courseClass" label="课程类型">
 				</el-table-column>
-				<el-table-column prop="classCode" label="课程代码" width="120">
+				<el-table-column prop="name" label="课程名称" width="150">
 				</el-table-column>
-				<el-table-column prop="className" label="课程名称" width="120">
+				<el-table-column prop="time" label="学时">
 				</el-table-column>
-				<el-table-column prop="teacher" label="任课教师" >
+				<el-table-column prop="score" label="学分">
 				</el-table-column>
-				<el-table-column prop="classNum" label="教学班号" >
-				</el-table-column>
-				<el-table-column prop="campus" label="行课校区" >
+				<el-table-column prop="teacher.name" label="任课教师">
 				</el-table-column>
 				<el-table-column fixed="right" label="评价" width="120">
 					<template slot-scope="scope">
-						<el-button type="warning" size="mini" @click="comments"> 评价 </el-button>
+						<el-button type="warning" size="mini" @click="goComments(scope.row.id, scope.row.teacher.id)"> 评价 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -39,40 +38,20 @@
 
 <script>
 	export default {
-		props:['pathheader'],
+		props: ['pathheader'],
 		data() {
 			return {
-				tableData: [{
-					plan: '201901',
-					college: '计算机科学学院',
-					classType: '理论课',
-					classCategory: '实践教学环节',
-					classCode: '191049',
-					className: '软件工程',
-					teacher: '001-李四',
-					classNum: '20171104',
-					campus: '成龙校区'
-				}, {
-					plan: '201902',
-					college: '计算机科学学院',
-					classType: '理论课',
-					classCategory: '实践教学环节',
-					classCode: '191059',
-					className: 'c语言',
-					teacher: '001-李四',
-					classNum: '20171104',
-					campus: '成龙校区'
-				}],
-				
+				appraiseList: [],
+				loading: true,
+				pageSum: 1, // 数据总数
 				pageinfo: {
-					pageSum: 1, // 数据总数
 					pageindex: 1, // 当前页码
 					pagesize: 5 // 当前每页多少条
 				}
 			}
 		},
 		created() {
-			
+			this.getAppraiseList()
 		},
 		methods: {
 			tableRowClassName({
@@ -86,8 +65,42 @@
 				}
 				return ''
 			},
-			comments() {
-				this.$router.push( this.pathheader + '/appraiseedit')
+			goComments(courseid, toid) {
+				// console.log(courseid, toid)
+				window.sessionStorage.setItem('courseid', courseid)
+				window.sessionStorage.setItem('toid', toid)
+				switch (this.pathheader) {
+					case '/stu':
+						this.$router.push({
+							name: 'StuAppraiseEdit',
+							params: {
+								courseid: courseid,
+								toid: toid
+							}
+						})
+						break
+					case '/teacher':
+						this.$router.push({
+							name: 'TeacherAppraiseEdit',
+							params: {
+								courseid: courseid,
+								toid: toid
+							}
+						})
+						break
+					case '/spv':
+						this.$router.push({
+							name: 'SpvAppraiseEdit',
+							params: {
+								courseid: courseid,
+								toid: toid
+							}
+						})
+						break
+					default:
+						break
+				}
+				this.$router.push(this.pathheader + '/appraiseedit')
 			},
 			// 监听pageSize改变的时间
 			handleSizeChange(newSize) {
@@ -99,11 +112,35 @@
 				// console.log(newPage)
 				this.pageinfo.pageindex = newPage
 			},
+
+			//获取可评价课程列表
+			getAppraiseList() {
+				this.$http.get('/evaluation/courses/byTeacherId', {
+						params: {
+							id: 2
+						}
+					}).then(res => {
+						// console.log(res)
+						this.appraiseList = res.data.data
+						// this.loading = false
+					})
+					.catch(err => {
+						console.log(err)
+						this.$message({
+							message: '请求失败，请检查网络',
+							type: 'warning'
+						})
+					})
+			},
 		}
 	}
 </script>
 
 <style>
+	.el-breadcrumb {
+		margin-bottom: 15px;
+	}
+
 	.el-pagination {
 		margin-top: 15px;
 		margin-left: 15px;

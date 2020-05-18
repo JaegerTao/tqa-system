@@ -91,8 +91,11 @@
 		methods: {
 			// 请求课程数据列表，按页码
 			getCourseList() {
-				this.$http.get('/courseManage/listCourse')
-					.then(res => {
+				this.$http.get('/evaluation/courses/byTeacherId', {
+						params:{
+							id: 2
+						}
+					}).then(res => {
 						console.log(res)
 					})
 					.catch(err => {
@@ -118,11 +121,15 @@
 	}
 </script>
 
-<style>
+<style lang="less" scoped>
 	.el-pagination {
 		margin-top: 15px;
 		margin-left: 15px;
 	}
 
 	.el-card {}
+
+	.el-breadcrumb {
+		margin-bottom: 15px;
+	}
 </style>

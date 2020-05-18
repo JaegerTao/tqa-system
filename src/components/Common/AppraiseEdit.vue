@@ -72,7 +72,7 @@
 				</div>
 			</el-form>
 			<div class="btn-submit">
-				<el-button type="primary" @click='submitAdvice' :disabled="optionForm.scores.length < commentData.length">提交评价</el-button>
+				<el-button type="primary" @click='submitAdvice' :disabled="btnDiabled()">提交评价</el-button>
 			</div>
 		</el-card>
 	</div>
@@ -83,6 +83,9 @@
 		props: ['pathheader'],
 		data() {
 			return {
+				courseid: null,
+				toid: null,
+
 				backpath: {
 					path: this.pathheader + '/appraise'
 				},
@@ -97,7 +100,7 @@
 					classNum: '20171104',
 					campus: '成龙校区',
 				}],
-				
+
 				//评价内容列表
 				commentData: [],
 
@@ -116,19 +119,39 @@
 			}
 		},
 		created() {
+			this.getRouteData()
 			this.getAppraiseList()
 		},
 		methods: {
+			//接收被评价课程id和被评价教师id
+			getRouteData() {
+				this.courseid = this.$route.params.courseid
+				this.toid = this.$route.params.toid
+				if (this.courseid == '' || this.toid == '') {
+					this.courseid = window.sessionStorage.getItem('courseid')
+					this.toid = window.sessionStorage.getItem('toid')
+				}
+			},
+
 			//提交评价
 			submitAdvice() {
 				this.$refs.optionFormRef.validate(valid => {
 					if (!valid) return // 验证不通过
-					if (this.optionForm.scores.length < 6) {
+					if (this.optionForm.scores.length < this.commentData.length) {
 						this.$message.error('请选完选项哦')
 						return
 					}
-					this.$message.success('提交成功')
-					this.$router.go(-1);
+
+					let evajson = this.madeEvajson()
+
+					this.$http.post('/evaluation/teacherIndividualEvaluation', evajson)
+						.then(res => {
+							console.log(res)
+							this.$message.success('提交成功')
+							this.$router.go(-1);
+						}).catch(err => {
+							console.log(err)
+						})
 				})
 			},
 			getAppraiseList() {
@@ -137,7 +160,7 @@
 					rid = 3
 				} else if (this.pathheader == '/teacher') {
 					rid = 2
-				} else if (this.pathheader == '/spv'){
+				} else if (this.pathheader == '/spv') {
 					rid = 4
 				}
 				this.$http.get('/evaluationItem/list?rid=' + rid)
@@ -147,6 +170,47 @@
 					.catch(err => {
 						console.log(err)
 					})
+			},
+			btnDiabled() {
+				if (!this.courseid || !this.toid) return true
+				if (this.optionForm.scores.length < this.commentData.length) {
+					return true
+				} else
+					return false
+			},
+			//构造提交表单
+			madeEvajson() {
+				let evajson = {}
+				evajson.advice = this.optionForm.advicetxt //建议
+				evajson.courseId = this.courseid //被评价课程id
+				evajson.fromId = 2 //评价人id
+				evajson.individualId = 0 //互评id
+				let rid = 0
+				if (this.pathheader == '/stu') {
+					rid = 3
+				} else if (this.pathheader == '/teacher') {
+					rid = 2
+				} else if (this.pathheader == '/spv') {
+					rid = 4
+				}
+				evajson.roleId = rid //评价人角色id
+				evajson.teacherId = this.toid //被评价老师id
+
+				let totalScore = 0
+				for (let score of this.optionForm.scores) {
+					totalScore = totalScore + score
+				}
+				evajson.totalScore = totalScore/6 //评价总分
+				//各评价选项
+				evajson.score1 = this.optionForm.scores[0]
+				evajson.score2 = this.optionForm.scores[1]
+				evajson.score3 = this.optionForm.scores[2]
+				evajson.score4 = this.optionForm.scores[3]
+				evajson.score5 = this.optionForm.scores[4]
+				evajson.score6 = this.optionForm.scores[5]
+
+				console.log(evajson)
+				return evajson
 			}
 		}
 
@@ -156,6 +220,7 @@
 <style lang="less" scoped>
 	.table-classinfo {
 		margin-left: 50%;
+		margin-bottom: 15px;
 		transform: translate(-50%);
 	}
 

@@ -16,12 +16,13 @@
 				</el-form-item>
 				<!-- 密码 -->
 				<el-form-item prop="password">
-					<el-input v-model="loginForm.password" placeholder="请输入密码" type="password" prefix-icon="el-icon-lock"></el-input>
+					<el-input v-model="loginForm.password" placeholder="请输入密码" type="password" prefix-icon="el-icon-lock" show-password></el-input>
 				</el-form-item>
 				<!-- 按钮 -->
 				<el-form-item class="btns">
 					<el-button type="primary" @click="login">登录</el-button>
 					<el-button type="info" @click="resetLoginForm">重置</el-button>
+					<el-button size="small" type="info" @click="forgetPwd">忘记密码</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
@@ -69,7 +70,7 @@ export default {
         const pwdmd5 = this.$md5(this.loginForm.password)// md5加密密码
         console.log(pwdmd5)
 		this.$http.post('/login', this.loginForm).then(function(res){
-			console.log(res)
+			// console.log(res)
 		}).catch(function(err){
 			console.log(err)
 		})
@@ -86,7 +87,14 @@ export default {
           this.$router.push('/spvhome')
         }
       })
-    }
+    },
+	
+	//忘记密码
+	forgetPwd(){
+		this.$router.push('/initpwd')
+	}
+	
+	
   }
 }
 </script>
