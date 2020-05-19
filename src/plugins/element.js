@@ -26,7 +26,8 @@ import {
 	Col,
 	Radio,
 	RadioGroup,
-	RadioButton
+	RadioButton,
+	Loading
 } from 'element-ui'
 
 Vue.use(Button)
@@ -55,5 +56,6 @@ Vue.use(Col)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
+Vue.use(Loading)
 // 弹框组件挂载到Vue原型对象上，每个组件可以通过this访问到$message进行弹框提示
 Vue.prototype.$message = Message

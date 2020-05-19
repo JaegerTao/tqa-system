@@ -20,6 +20,7 @@ import Appraise from '../components/Common/Appraise.vue' // 评价列表
 import ChangePwd from '../components/Common/ChangePwd.vue' // 修改密码
 import AppraiseEdit from '../components/Common/AppraiseEdit.vue' // 评价详情页面
 import ForgetPwd from '../components/Common/ForgetPwd.vue' //忘记密码
+import RoleErr from '../components/Common/RoleErr.vue' //用户角色访问非权限的提示页面
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes = [{
 	{
 		path: '/initpwd',
 		component: ForgetPwd
+	},
+	{
+		path: '/roleerr',
+		component: RoleErr
 	},
 	{//学生页面路由
 		path: '/stuhome',
@@ -113,7 +118,9 @@ router.beforeEach((to, from, next) => {
 	// 获取token
 	const tokenStr = window.sessionStorage.getItem('token')
 	if (!tokenStr) return next('/login')
-	next()
+	//不同角色访问守卫
+	
+	return next()
 })
 
 export default router

@@ -29,8 +29,8 @@
 					</el-form-item>
 				</el-form>
 				<div class="btns">
-					<el-button type="primary">保存</el-button>
-					<el-button type="info" @click='goLogin'>返回登录页</el-button>
+					<el-button type="primary" @click='saveButton()'>保存</el-button>
+					<el-button type="info" @click='goLogin()'>返回登录页</el-button>
 				</div>
 			</el-card>
 		</el-container>
@@ -57,6 +57,23 @@ export default {
     
   },
   methods: {
+	  saveButton(){
+		  const idnumber = this.$md5(this.initForm.idnumber)
+		  const newpwd = this.$md5(this.initForm.newpwd)
+		  const comfirmpwd = this.$md5(this.initForm.comfirmpwd)
+		  this.$http.post('/user/findPWD',{
+		  	params:{
+				username: this.initForm.username,
+		  		idnumber: idnumber,
+		  		newpwd: newpwd,
+		  		comfirmpwd: comfirmpwd
+		  	}
+		  }).then(res =>{
+		  	console.log(res)
+		  }).catch(err => {
+		  	console.log(err)
+		  })
+	  },
 	  goLogin(){
 		  this.$router.push('/login')
 	  }

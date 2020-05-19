@@ -35,24 +35,47 @@ export default {
     return {
       // 登录表单数据绑定
       loginForm: {
-        username: '2017110414',
-        password: '1234567'
+        username: '',
+        password: ''
       },
       // 表单验证规则对象
       loginFormRules: {
         // 验证用户名是否合法
         username: [
           { required: true, message: '请输入用户账号', trigger: 'blur' },
-          { min: 6, max: 12, message: '请输入正确的账号', trigger: 'blur' }
+          { min: 2, max: 12, message: '请输入正确的账号', trigger: 'blur' }
         ],
         // 验证密码是否合法
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, message: '密码最少6位', trigger: 'blur' }
+          { min: 3, message: '密码最少6位', trigger: 'blur' }
         ]
-      }
+      },
+	  subForm: {
+	    id: 0,
+	    idNumber: "string",
+	    name: "",
+	    password: "",
+	    role: {
+	      id: 0,
+	      name: "string",
+	      permissions: [
+	        {
+	          id: 0,
+	          name: "string",
+	          perms: "string",
+	          type: "string",
+	          url: "string"
+	        }
+	      ]
+	    },
+	    roleId: 0
+	  }
 
     }
+  },
+  created() {
+  	window.sessionStorage.clear()
   },
   methods: {
     // 重置表单
@@ -68,24 +91,38 @@ export default {
         if (!valid) return // 验证不通过
         // 发起登陆请求
         const pwdmd5 = this.$md5(this.loginForm.password)// md5加密密码
-        console.log(pwdmd5)
-		this.$http.post('/login', this.loginForm).then(function(res){
-			// console.log(res)
-		}).catch(function(err){
+        console.log(this.$md5('510603199802201510'))
+		this.subForm.name = this.loginForm.username
+		this.subForm.password = pwdmd5
+		this.$http.post('/login', this.subForm).then(res => {
+			if(res.data.status == '200'){
+				let role_id = res.data.role_id
+				const username = res.data.username
+				// console.log(role_id, username)
+				window.sessionStorage.setItem('username', res.data.username)
+				window.sessionStorage.setItem('role_id', res.data.role_id)
+				
+				this.$message.success('登录成功')
+				// 服务器传回token，保存到sessionStorage(会话期间存储),只在当前网站打开期间生效
+				window.sessionStorage.setItem('token', role_id+username)
+				
+				if (role_id == '2') {
+				  this.$router.push('/teacherhome')
+				} else if (role_id == '3'){
+				  this.$router.push('/stuhome')
+				} else if (role_id == '4'){
+				  this.$router.push('/spvhome')
+				} else if (role_id == '1'){
+					this.$message.warning('管理员请移步管理员登录入口')
+				}
+			}else if(res.data.status == '401'){
+				this.$message.warning('密码错误')
+			}else if(res.data.status == '-1'){
+				this.$message.warning('用户名或密码错误')
+			}
+		}).catch(err => {
 			console.log(err)
 		})
-		
-        // 暂默认登录成功
-        this.$message.success('登录成功')
-        // 服务器传回token，保存到sessionStorage(会话期间存储),只在当前网站打开期间生效
-        window.sessionStorage.setItem('token', this.loginForm.username)
-        if (this.loginForm.username == '2017110414') {
-          this.$router.push('/teacherhome')
-        } else if (this.loginForm.username == '201711041'){
-          this.$router.push('/stuhome')
-        } else if (this.loginForm.username == '20171104'){
-          this.$router.push('/spvhome')
-        }
       })
     },
 	

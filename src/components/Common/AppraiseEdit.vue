@@ -6,25 +6,23 @@
 			<el-breadcrumb-item>课程评价</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-card>
-			<el-table class="table-classinfo" :data="tableData" border style="width: 90%" size="mini" :header-cell-style="{'text-align':'center'}"
+			<el-table class="table-classinfo" :data="appraiseItem" border style="width: 90%" size="mini" :header-cell-style="{'text-align':'center'}"
 			 :cell-style="{'text-align':'center'}">
-				<el-table-column prop="plan" label="执行计划">
+				<el-table-column prop="number" label="课程号" width="100">
 				</el-table-column>
-				<el-table-column prop="college" label="学院">
+				<el-table-column prop="courseDep" label="学院" width="150">
 				</el-table-column>
-				<el-table-column prop="classType" label="课程类型">
+				<el-table-column prop="courseType" label="课程类别" width="220">
 				</el-table-column>
-				<el-table-column prop="classCategory" label="课程类别">
+				<el-table-column prop="courseClass" label="课程类型">
 				</el-table-column>
-				<el-table-column prop="classCode" label="课程代码">
+				<el-table-column prop="name" label="课程名称" width="150">
 				</el-table-column>
-				<el-table-column prop="className" label="课程名称">
+				<el-table-column prop="time" label="学时">
 				</el-table-column>
-				<el-table-column prop="teacher" label="任课教师">
+				<el-table-column prop="score" label="学分">
 				</el-table-column>
-				<el-table-column prop="classNum" label="教学班号">
-				</el-table-column>
-				<el-table-column prop="campus" label="行课校区">
+				<el-table-column prop="teacher.name" label="任课教师">
 				</el-table-column>
 			</el-table>
 
@@ -89,17 +87,8 @@
 				backpath: {
 					path: this.pathheader + '/appraise'
 				},
-				tableData: [{
-					plan: '201901',
-					college: '计算机科学学院',
-					classType: '理论课',
-					classCategory: '实践教学环节',
-					classCode: '191049',
-					className: '软件工程',
-					teacher: '001-李四',
-					classNum: '20171104',
-					campus: '成龙校区',
-				}],
+				//显示当前评价课程的内容
+				appraiseItem: [],
 
 				//评价内容列表
 				commentData: [],
@@ -127,9 +116,13 @@
 			getRouteData() {
 				this.courseid = this.$route.params.courseid
 				this.toid = this.$route.params.toid
+				let rowstr = window.sessionStorage.getItem('appraiseItem')
+				this.appraiseItem = []
+				this.appraiseItem.push(JSON.parse(rowstr))
+				console.log(this.appraiseItem)
 				if (this.courseid == '' || this.toid == '') {
-					this.courseid = window.sessionStorage.getItem('courseid')
-					this.toid = window.sessionStorage.getItem('toid')
+					this.courseid = this.appraiseItem.id
+					this.toid = this.appraiseItem.teacher.id
 				}
 			},
 
@@ -143,8 +136,15 @@
 					}
 
 					let evajson = this.madeEvajson()
-
-					this.$http.post('/evaluation/teacherIndividualEvaluation', evajson)
+					let apistr = null
+					if (this.pathheader == '/stu') {
+						apistr = '/studentIndividualEvaluation'
+					} else if (this.pathheader == '/teacher') {
+						apistr = '/teacherIndividualEvaluation'
+					} else if (this.pathheader == '/spv') {
+						apistr = '/superIndividualEvaluation'
+					}
+					this.$http.post('/evaluation' + apistr, evajson)
 						.then(res => {
 							console.log(res)
 							this.$message.success('提交成功')
@@ -183,8 +183,8 @@
 				let evajson = {}
 				evajson.advice = this.optionForm.advicetxt //建议
 				evajson.courseId = this.courseid //被评价课程id
-				evajson.fromId = 2 //评价人id
-				evajson.individualId = 0 //互评id
+				evajson.fromId = null //评价人id
+				evajson.individualId = null //互评id
 				let rid = 0
 				if (this.pathheader == '/stu') {
 					rid = 3
@@ -193,14 +193,14 @@
 				} else if (this.pathheader == '/spv') {
 					rid = 4
 				}
-				evajson.roleId = rid //评价人角色id
+				evajson.roleId = null //评价人角色id
 				evajson.teacherId = this.toid //被评价老师id
 
-				let totalScore = 0
-				for (let score of this.optionForm.scores) {
-					totalScore = totalScore + score
-				}
-				evajson.totalScore = totalScore/6 //评价总分
+				// let totalScore = 0
+				// for (let score of this.optionForm.scores) {
+				// 	totalScore = totalScore + score
+				// }
+				evajson.totalScore = null // totalScore/6 //评价总分
 				//各评价选项
 				evajson.score1 = this.optionForm.scores[0]
 				evajson.score2 = this.optionForm.scores[1]
@@ -218,6 +218,9 @@
 </script>
 
 <style lang="less" scoped>
+	.el-breadcrumb{
+		margin-bottom: 15px;
+	}
 	.table-classinfo {
 		margin-left: 50%;
 		margin-bottom: 15px;
@@ -243,13 +246,14 @@
 	}
 
 	.advice-textarea {
-		width: 60%;
+		// border: 1px solid black;
+		width: 50%;
 		margin-left: 50%;
 		transform: translate(-50%);
 		font-size: 14px;
 
 		>.el-row {
-			margin-top: -10px;
+			margin-top: 15px;
 		}
 
 		.advice-title {

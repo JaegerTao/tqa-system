@@ -9,7 +9,7 @@
 			</div>
 			<div class="header-name">
 				<span>您好，{{ name }}同学</span>
-				<el-button type="info" @click="changePwd">修改密码</el-button>
+				<el-button type="info" @click="changePage">{{ btnTxt }}</el-button>
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
 		</el-header>
@@ -19,33 +19,56 @@
 			<router-view :pathheader="pathheader"></router-view>
 		</el-main>
 
-		<el-footer>
-			<center> 软件工程 </center>
+		<el-footer height="5%">
+			<span>Made by Team 4 : Xixi & JaegerTao</span>
+			<span>学生端</span>
 		</el-footer>
 	</el-container>
 </template>
 
 <script>
 	export default {
-		methods: {
-			changePwd() {
-				this.$router.push('/stu/changepwd');
-			},
-			logout() {
-				window.sessionStorage.clear();
-				this.$router.push('/login');
-			},
-			appraise() {
-				this.$router.push('/stu/appraise');
-			}
-		},
 		data() {
 			return {
 				pathheader: '/stu',
-				name : "蒋滔"
+				name: "",
+				btnTxt: '修改密码',
+				currentPage: 0,
 			}
 		},
-		
+		created() {
+			this.getUserinfo()
+		},
+		methods: {
+			//获取用户信息
+			getUserinfo() {
+				this.name = window.sessionStorage.getItem('username')
+			},
+			//切换页面
+			changePage() {
+				switch(this.currentPage){
+					case 0:
+						this.$router.push('/stu/changepwd')
+						this.currentPage = 1
+						this.btnTxt = '评价列表'
+						break
+					case 1:
+						this.$router.push('/stu/appraise')
+						this.currentPage = 0
+						this.btnTxt = '修改密码'
+						break
+					default:
+						break
+				}
+			},
+			logout() {
+				window.sessionStorage.clear()
+				this.$router.push('/login')
+			},
+			appraise() {
+				this.$router.push('/stu/appraise')
+			}
+		}
 	};
 </script>
 
@@ -57,15 +80,17 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		> div{
+
+		>div {
 			button {
 				margin-left: 20px;
 			}
 		}
+
 		.header-title {
 			display: flex;
 			align-items: center;
-		
+
 			span {
 				margin-left: 20px;
 				font-size: 25px;
@@ -74,9 +99,11 @@
 				overflow: hidden;
 			}
 		}
+
 		.header-name {
 			align-items: center;
-			> span {
+
+			>span {
 				font-size: 20px;
 				color: #ffffff;
 				margin-right: 30px;
@@ -85,7 +112,7 @@
 			}
 		}
 	}
-	
+
 	.avatar_box {
 		height: 30px;
 		width: 30px;
@@ -104,9 +131,7 @@
 	}
 
 	.el-main {
-
-		> div {
-
+		>div {
 			center {
 				font-size: 20px;
 			}
@@ -115,9 +140,18 @@
 
 	.el-footer {
 		background-color: #55557f;
+		border-radius: 5px 5px 0px 0px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row-reverse;
+
+		>span {
+			color: #FFFFFF;
+		}
 	}
 
-	.home-container{
+	.home-container {
 		height: 100%;
 	}
 </style>

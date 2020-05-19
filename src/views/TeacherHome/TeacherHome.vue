@@ -8,7 +8,7 @@
 				<span> 教学质量评估-教师端 </span>
 			</div>
 			<div class="header-name">
-				<span>您好，{{ name }}老师</span>
+				<span>ID:{{ name + ' '}}</span> <span>您好，老师</span>
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
 		</el-header>
@@ -48,33 +48,38 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-		pathheader: '/teacher',
-      name: '蒋滔',
-      activePath: '/teacher/filemanager' // 被激活的路由地址
-    }
-  },
-  created () {
-    this.activePath = window.sessionStorage.getItem('activePath')
-	if(!this.activePath) this.activePath = '/teacher/filemanager'
-  },
-  methods: {
-    // 退出登录
-    logout () {
-      window.sessionStorage.clear()
-      this.$router.push('/login')
-    },
+	export default {
+		data() {
+			return {
+				pathheader: '/teacher',
+				name: '',
+				activePath: '/teacher/filemanager' // 被激活的路由地址
+			}
+		},
+		created() {
+			this.getUserinfo()
+			this.activePath = window.sessionStorage.getItem('activePath')
+			if (!this.activePath) this.activePath = '/teacher/filemanager'
+		},
+		methods: {
+			//获取用户信息
+			getUserinfo(){
+				this.name = window.sessionStorage.getItem('username')
+			},
+			// 退出登录
+			logout() {
+				window.sessionStorage.clear()
+				this.$router.push('/login')
+			},
 
-    // 保存链接激活状态
-    saveNavState (activePath) {
-      window.sessionStorage.setItem('activePath', activePath)
-      this.activePath = activePath
-    }
-  }
+			// 保存链接激活状态
+			saveNavState(activePath) {
+				window.sessionStorage.setItem('activePath', activePath)
+				this.activePath = activePath
+			}
+		}
 
-}
+	}
 </script>
 
 <style lang="less" scoped>
@@ -136,7 +141,8 @@ export default {
 		justify-content: space-between;
 		align-items: center;
 		flex-direction: row-reverse;
-		> span{
+
+		>span {
 			color: #FFFFFF;
 		}
 	}
@@ -150,8 +156,9 @@ export default {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
-	.el-aside{
-		.el-menu{
+
+	.el-aside {
+		.el-menu {
 			height: 100%;
 		}
 	}

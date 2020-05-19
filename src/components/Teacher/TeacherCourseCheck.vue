@@ -7,35 +7,71 @@
 			<el-breadcrumb-item>评价详情</el-breadcrumb-item>
 		</el-breadcrumb>
 
-		<el-table class="table-classinfo" :data="tableData" border style="width: 90%" size="mini" :header-cell-style="{'text-align':'center'}"
+		<el-table class="table-classinfo" :data="courseCheckItem" border style="width: 90%" size="mini" :header-cell-style="{'text-align':'center'}"
 		 :cell-style="{'text-align':'center'}">
-			<el-table-column prop="plan" label="执行计划">
+			<el-table-column prop="number" label="课程号" width="100">
 			</el-table-column>
-			<el-table-column prop="college" label="学院">
+			<el-table-column prop="courseDep" label="学院" width="150">
 			</el-table-column>
-			<el-table-column prop="classType" label="课程类型">
+			<el-table-column prop="courseType" label="课程类别" width="220">
 			</el-table-column>
-			<el-table-column prop="classCategory" label="课程类别">
+			<el-table-column prop="courseClass" label="课程类型">
 			</el-table-column>
-			<el-table-column prop="classCode" label="课程代码">
+			<el-table-column prop="name" label="课程名称" width="150">
 			</el-table-column>
-			<el-table-column prop="className" label="课程名称">
+			<el-table-column prop="time" label="学时">
 			</el-table-column>
-			<el-table-column prop="teacher" label="任课教师">
+			<el-table-column prop="score" label="学分">
 			</el-table-column>
-			<el-table-column prop="classNum" label="教学班号">
-			</el-table-column>
-			<el-table-column prop="campus" label="行课校区">
+			<el-table-column prop="teacher.name" label="任课教师">
 			</el-table-column>
 		</el-table>
 
 		<el-tabs v-model="activeName" type="border-card">
+
 			<el-tab-pane label="总体情况" name="totalappraise">
 				<div class="charts">
-					<v-chart  :options="totalappraise"></v-chart>
-					<div>总体情况</div>
+					<div>
+						<v-chart :options="totalappraise"></v-chart>
+					</div>
+					<div class="total-content">
+						<div class="total-content-title">总体情况(5分制)</div>
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<div class="grid-content bg-purple">学生评价平均分</div>
+							</el-col>
+							<el-col :span="12">
+								<div class="grid-content bg-purple">{{ totalScoreStu == 0 ? '暂无': totalScoreStu }}</div>
+							</el-col>
+						</el-row>
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<div class="grid-content bg-purple">教师互评平均分</div>
+							</el-col>
+							<el-col :span="12">
+								<div class="grid-content bg-purple">{{ totalScoreTeacher == 0 ? '暂无': totalScoreTeacher }}</div>
+							</el-col>
+						</el-row>
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<div class="grid-content bg-purple">督导评价平均分</div>
+							</el-col>
+							<el-col :span="12">
+								<div class="grid-content bg-purple">{{ totalScoreSpv == 0 ? '暂无': totalScoreSpv }}</div>
+							</el-col>
+						</el-row>
+						<el-row :gutter="20">
+							<el-col :span="12">
+								<div class="grid-content bg-purple">总平均分</div>
+							</el-col>
+							<el-col :span="12">
+								<div class="grid-content bg-purple">{{ totalScore == 0 ? '暂无': totalScore }}</div>
+							</el-col>
+						</el-row>
+					</div>
 				</div>
 			</el-tab-pane>
+
 			<el-tab-pane label="学生评价" name="stuappraise">
 				<el-table :data="appraiseListStu" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 					<el-table-column type="index" fixed="left"></el-table-column>
@@ -49,10 +85,10 @@
 				</el-table>
 				<el-row>
 					<el-col :span="14">
-						<el-button type="info" @click='goAdvice'>查看建议</el-button>
+						<el-button type="info" :disabled="totalScoreStu == 0" @click='goAdvice(3)'>查看建议</el-button>
 					</el-col>
 					<el-col :span="10">
-						<div class="sumscore">总平均分：{{ totalScoreStu }}</div>
+						<div class="sumscore">总平均分：{{ totalScoreStu == 0 ? '暂无': totalScoreStu }}</div>
 					</el-col>
 				</el-row>
 			</el-tab-pane>
@@ -69,10 +105,10 @@
 				</el-table>
 				<el-row>
 					<el-col :span="14">
-						<el-button type="info" @click='goAdvice'>查看建议</el-button>
+						<el-button type="info" :disabled="totalScoreTeacher == 0" @click='goAdvice(2)'>查看建议</el-button>
 					</el-col>
 					<el-col :span="10">
-						<div class="sumscore">总平均分：{{ totalScoreTeacher }}</div>
+						<div class="sumscore">总平均分：{{ totalScoreTeacher == 0 ? '暂无': totalScoreTeacher }}</div>
 					</el-col>
 				</el-row>
 			</el-tab-pane>
@@ -89,10 +125,10 @@
 				</el-table>
 				<el-row>
 					<el-col :span="14">
-						<el-button type="info" @click='goAdvice'>查看建议</el-button>
+						<el-button type="info" :disabled="totalScoreSpv == 0" @click='goAdvice(4)'>查看建议</el-button>
 					</el-col>
 					<el-col :span="10">
-						<div class="sumscore">总平均分：{{ totalScoreSpv }}</div>
+						<div class="sumscore">总平均分：{{ totalScoreSpv == 0 ? '暂无': totalScoreSpv }}</div>
 					</el-col>
 				</el-row>
 			</el-tab-pane>
@@ -110,21 +146,13 @@
 				appraiseListStu: [],
 				appraiseListTeacher: [],
 				appraiseListSpv: [],
-				totalScoreStu: 100,
-				totalScoreTeacher: 100,
-				totalScoreSpv: 100,
+				totalScoreStu: 0,
+				totalScoreTeacher: 0,
+				totalScoreSpv: 0,
+				totalScore: 0,
 
-				tableData: [{
-					plan: '201901',
-					college: '计算机科学学院',
-					classType: '理论课',
-					classCategory: '实践教学环节',
-					classCode: '191049',
-					className: '软件工程',
-					teacher: '001-李四',
-					classNum: '20171104',
-					campus: '成龙校区',
-				}],
+				courseCheckItem: [],
+				courseid: '',
 
 				totalappraise: {
 					title: {
@@ -145,7 +173,7 @@
 						name: '评价权重占比',
 						type: 'pie',
 						radius: '55%',
-						center: ['40%', '50%'],
+						center: ['40%', '40%'],
 						data: [{
 								value: 30,
 								name: '学生评价'
@@ -171,12 +199,23 @@
 			}
 		},
 		created() {
+			this.getCheckCourseItem()
 			this.initList()
 		},
 		methods: {
-			goAdvice() {
+			//跳转到查看建议页面
+			goAdvice(adviceRole) {
+				window.sessionStorage.setItem('adviceRole',adviceRole)
 				this.$router.push('/teacher/teacheradvice')
 			},
+			//获取当前查看课程
+			getCheckCourseItem() {
+				let rowstr = window.sessionStorage.getItem('courseCheckItem')
+				this.courseCheckItem = []
+				this.courseCheckItem.push(JSON.parse(rowstr))
+				this.courseid = this.courseCheckItem[0].id
+			},
+			//加载列表
 			async initList() {
 				await this.getAppraiseList()
 				await this.getSummaryEva()
@@ -206,8 +245,13 @@
 
 			},
 			getSummaryEva() {
-				this.$http.get('/evaluation/summaryEvaluation/byTeacherId?id=2')
+				this.$http.get('/evaluation/summaryEvaluation/byTeacherId', {
+						params: {
+							courseId: this.courseid
+						}
+					})
 					.then(res => {
+						console.log(res.data)
 						for (let eva of res.data.data) {
 							switch (eva.role_name) {
 								case "学生":
@@ -227,12 +271,6 @@
 									break
 								case "教师":
 									let scorelistTeacher = []
-									// scorelistTeacher[0] = eva.score_1
-									// scorelistTeacher[1] = eva.score_2
-									// scorelistTeacher[2] = eva.score_3
-									// scorelistTeacher[3] = eva.score_4
-									// scorelistTeacher[4] = eva.score_5
-									// scorelistTeacher[5] = eva.score_6
 									this.totalScoreTeacher = eva.total_score
 									scorelistTeacher = this.initScoreList(eva)
 									for (let i = 0; i < this.appraiseListTeacher.length; i++) {
@@ -241,12 +279,6 @@
 									break
 								case "督导":
 									let scorelistSpv = []
-									// scorelistSpv[0] = eva.score_1
-									// scorelistSpv[1] = eva.score_2
-									// scorelistSpv[2] = eva.score_3
-									// scorelistSpv[3] = eva.score_4
-									// scorelistSpv[4] = eva.score_5
-									// scorelistSpv[5] = eva.score_6
 									this.totalScoreSpv = eva.total_score
 									scorelistSpv = this.initScoreList(eva)
 									for (let i = 0; i < this.appraiseListSpv.length; i++) {
@@ -258,6 +290,7 @@
 							}
 						}
 						// console.log(this.appraiseListStu)
+						this.totalScore = Number(this.totalScoreStu * 0.3 + this.totalScoreTeacher * 0.3 + this.totalScoreSpv * 0.4).toFixed(2)
 					})
 					.catch(err => {
 						console.log(err)
@@ -282,7 +315,11 @@
 	}
 </script>
 
-<style>
+<style lang="less" scoped>
+	.el-breadcrumb {
+		margin-bottom: 15px;
+	}
+
 	.el-col {
 		margin-top: 10px;
 		text-align: center;
@@ -297,9 +334,66 @@
 		margin-left: 50%;
 		transform: translate(-50%);
 	}
-	
-	.charts{
-		width: 50%;
-		border: 1px solid black;
+
+	.charts {
+		// border: 1px solid black;
+		display: flex;
+		flex-direction: row;
+
+		.total-content {
+			// border: 1px solid black;
+			display: flex;
+			flex-direction: column;
+			width: 50%;
+
+			.total-content-title {
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom: 20px;
+				margin-left: 50%;
+				transform: translate(-50%);
+				font-size: 21px;
+				font-family: 'Courier New', Courier, monospace;
+			}
+
+			.el-row {
+				margin-bottom: 15px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			.el-col {
+				border-radius: 4px;
+
+			}
+
+			.bg-purple-dark {
+				background: #99a9bf;
+			}
+
+			.bg-purple {
+				background: #d3dce6;
+			}
+
+			.bg-purple-light {
+				background: #e5e9f2;
+			}
+
+			.grid-content {
+				border-radius: 4px;
+				min-height: 36px;
+				padding-top: 8px;
+				font-size: 20px;
+				font-family: 'Courier New', Courier, monospace;
+			}
+
+			.row-bg {
+				padding: 10px 0;
+				background-color: #f9fafc;
+			}
+
+		}
 	}
 </style>

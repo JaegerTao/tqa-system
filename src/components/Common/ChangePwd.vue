@@ -8,36 +8,49 @@
 			<span class="title"> 修改密码 </span>
 			<el-form label-position="right" label-width="80px">
 				<el-form-item label="原密码:">
-					<el-input placeholder="请输入原密码" v-model="oldpwd" show-password></el-input>
+					<el-input placeholder="请输入原密码" v-model="updataPwdForm.oldpwd" show-password></el-input>
 				</el-form-item>
 				
 				<el-form-item label="新密码:">
-					<el-input placeholder="请输入新密码" v-model="newpwd" show-password></el-input>
+					<el-input placeholder="请输入新密码" v-model="updataPwdForm.newpwd" show-password></el-input>
 				</el-form-item>
 				
 				<el-form-item label="确认密码:">
-					<el-input placeholder="确认密码" v-model="confirmpwd" show-password></el-input>
+					<el-input placeholder="确认密码" v-model="updataPwdForm.comfirmpwd" show-password></el-input>
 				</el-form-item>
 			</el-form>
-			<el-button class="saveButton"> 保存 </el-button>
+			<el-button class="saveButton" @click="saveButton()"> 保存 </el-button>
 		</el-card>
 	</div>
 </template>
 
 <script>
 	export default {
-		methods: {
-			saveButton() {
-
-			}
-		},
-		data() {s
+		data() {
 			return {
 				updataPwdForm:{
 					oldpwd: '',
 					newpwd: '',
 					comfirmpwd: ''
 				}
+			}
+		},
+		methods: {
+			saveButton() {
+				const oldpwd = this.$md5(this.updataPwdForm.oldpwd)
+				const newpwd = this.$md5(this.updataPwdForm.newpwd)
+				const comfirmpwd = this.$md5(this.updataPwdForm.comfirmpwd)
+				this.$http.post('/user/updatePWD',{
+					params:{
+						oldpwd: oldpwd,
+						newpwd: newpwd,
+						comfirmpwd: comfirmpwd
+					}
+				}).then(res =>{
+					console.log(res)
+				}).catch(err => {
+					console.log(err)
+				})
 			}
 		}
 	};

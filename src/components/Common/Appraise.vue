@@ -4,8 +4,19 @@
 		<el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item>可评价列表</el-breadcrumb-item>
 		</el-breadcrumb>
+		
 		<el-card class="box-card">
-			<el-table :v-loading="loading" :data="appraiseList" style="width: 100%" stripe :header-cell-style="{'text-align':'center'}"
+			<!-- 搜索框 -->
+			<el-row>
+				<el-col :span="10">
+					<el-input placeholder="请输入搜索内容" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
+						<el-button slot="append" icon="el-icon-search" ></el-button>
+					</el-input>
+				</el-col>
+			</el-row>
+			
+			<!-- 可评价课程列表区 -->
+			<el-table v-loading="loading" :data="appraiseList" style="width: 100%" stripe :header-cell-style="{'text-align':'center'}"
 			 :cell-style="{'text-align':'center'}">
 				<el-table-column prop="number" label="课程号" width="100">
 				</el-table-column>
@@ -25,12 +36,12 @@
 				</el-table-column>
 				<el-table-column fixed="right" label="评价" width="120">
 					<template slot-scope="scope">
-						<el-button type="warning" size="mini" @click="goComments(scope.row.id, scope.row.teacher.id)"> 评价 </el-button>
+						<el-button type="warning" size="mini" @click="goComments(scope.row)"> 评价 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageinfo.pageindex"
-			 :page-sizes="[5, 10, 15]" :page-size="pageinfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pageinfo.pageSum">
+			 :page-sizes="[5, 10]" :page-size="pageinfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pageSum">
 			</el-pagination>
 		</el-card>
 	</div>
@@ -47,7 +58,8 @@
 				pageinfo: {
 					pageindex: 1, // 当前页码
 					pagesize: 5 // 当前每页多少条
-				}
+				},
+				searchKeyTxt: '' //搜索关键词
 			}
 		},
 		created() {
@@ -65,10 +77,15 @@
 				}
 				return ''
 			},
-			goComments(courseid, toid) {
-				// console.log(courseid, toid)
-				window.sessionStorage.setItem('courseid', courseid)
-				window.sessionStorage.setItem('toid', toid)
+			//跳转到评价编辑页面
+			goComments(row) {
+				console.log(row)
+				let rowstr = JSON.stringify(row)
+				window.sessionStorage.setItem('appraiseItem', rowstr)
+				// window.sessionStorage.setItem('courseid', courseid)
+				// window.sessionStorage.setItem('toid', toid)
+				const courseid = row.id
+				const toid = row.teacher.id
 				switch (this.pathheader) {
 					case '/stu':
 						this.$router.push({
@@ -106,22 +123,45 @@
 			handleSizeChange(newSize) {
 				// console.log(newSize)
 				this.pageinfo.pagesize = newSize
+				this.getAppraiseList()
 			},
 			// 监听页码值改变的事件
 			handleCurrentChange(newPage) {
 				// console.log(newPage)
 				this.pageinfo.pageindex = newPage
+				this.getAppraiseList()
 			},
 
 			//获取可评价课程列表
 			getAppraiseList() {
-				this.$http.get('/evaluation/courses/byTeacherId', {
+				this.loading = true
+				let apistr = null
+				switch (this.pathheader) {
+					case '/stu':
+						apistr = '/student/courses'
+						break
+					case '/teacher':
+						apistr = '/teacher/courses'
+						break
+					case '/spv':
+						apistr = '/supervisor/courses'
+						break
+					default:
+						break
+				}
+				this.$http.get('/evaluation'+ apistr, {
 						params: {
-							id: 2
+							pageSize: this.pageinfo.pagesize,
+							startPage: this.pageinfo.pageindex
 						}
 					}).then(res => {
-						// console.log(res)
-						this.appraiseList = res.data.data
+						// console.log(res.data)
+						this.appraiseList = res.data.data.records
+						this.pageSum = res.data.data.total
+						let that = this
+						setTimeout(function(){
+							that.loading = false
+						}, 500)
 						// this.loading = false
 					})
 					.catch(err => {
@@ -130,13 +170,20 @@
 							message: '请求失败，请检查网络',
 							type: 'warning'
 						})
+						setTimeout(function(){
+							that.loading = false
+						}, 500)
 					})
 			},
+			
 		}
 	}
 </script>
 
-<style>
+<style lang="less" scoped>
+	.body {
+		margin: 0;
+	}
 	.el-breadcrumb {
 		margin-bottom: 15px;
 	}
@@ -144,5 +191,13 @@
 	.el-pagination {
 		margin-top: 15px;
 		margin-left: 15px;
+	}
+
+	
+	
+	.box-card{
+		.el-row{
+			margin-left: 12px;
+		}
 	}
 </style>
