@@ -99,6 +99,9 @@
 </script>
 
 <style lang="less" scoped>
+	.body {
+		margin: 0;
+	}
 	.el-pagination {
 		margin-top: 15px;
 		margin-left: 15px;

@@ -9,8 +9,8 @@
 			<!-- 搜索框 -->
 			<el-row>
 				<el-col :span="10">
-					<el-input placeholder="搜索老师名" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
-						<el-button slot="append" icon="el-icon-search"></el-button>
+					<el-input placeholder="搜索课程名" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
+						<el-button slot="append" icon="el-icon-search" @click="searchCourse"></el-button>
 					</el-input>
 				</el-col>
 			</el-row>
@@ -132,7 +132,10 @@
 				this.pageinfo.pageindex = newPage
 				this.getAppraiseList()
 			},
-
+			//搜索词搜索
+			searchCourse(){
+				this.getAppraiseList()
+			},
 			//获取可评价课程列表
 			getAppraiseList() {
 				this.loading = true
@@ -152,6 +155,7 @@
 				}
 				this.$http.get('/evaluation' + apistr, {
 						params: {
+							courseName: this.searchKeyTxt,
 							pageSize: this.pageinfo.pagesize,
 							startPage: this.pageinfo.pageindex
 						}
