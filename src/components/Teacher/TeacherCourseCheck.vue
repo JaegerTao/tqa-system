@@ -27,7 +27,7 @@
 			</el-table-column>
 		</el-table>
 
-		<el-tabs v-model="activeName" type="border-card">
+		<el-tabs v-loading='loading' v-model="activeName" type="border-card">
 
 			<el-tab-pane label="总体情况" name="totalappraise">
 				<div class="charts">
@@ -195,7 +195,8 @@
 							}
 						}
 					}]
-				}
+				},
+				loading: true
 			}
 		},
 		created() {
@@ -217,8 +218,10 @@
 			},
 			//加载列表
 			async initList() {
+				this.loading = true
 				await this.getAppraiseList()
 				await this.getSummaryEva()
+				this.loading = false
 			},
 			getAppraiseList() {
 				this.$http.get('/evaluationItem/list?rid=2')

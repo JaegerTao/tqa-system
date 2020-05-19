@@ -66,7 +66,7 @@
 							startPage: this.pageinfo.pageindex
 						}
 					}).then(res => {
-						console.log(res)
+						// console.log(res)
 						this.courseList = res.data.data.records
 						this.pageSum = res.data.data.total
 						this.loading = false

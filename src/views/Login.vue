@@ -51,6 +51,7 @@ export default {
           { min: 3, message: '密码最少6位', trigger: 'blur' }
         ]
       },
+	  //构建需要提交的登录对象
 	  subForm: {
 	    id: 0,
 	    idNumber: "string",
@@ -91,7 +92,7 @@ export default {
         if (!valid) return // 验证不通过
         // 发起登陆请求
         const pwdmd5 = this.$md5(this.loginForm.password)// md5加密密码
-        console.log(this.$md5('510603199802201510'))
+        // console.log(this.$md5('510603199802201510'))
 		this.subForm.name = this.loginForm.username
 		this.subForm.password = pwdmd5
 		this.$http.post('/login', this.subForm).then(res => {

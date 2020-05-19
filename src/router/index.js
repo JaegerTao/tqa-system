@@ -114,13 +114,24 @@ router.beforeEach((to, from, next) => {
 	// to 将要访问的路径
 	// from 从哪个路径跳转而来
 	// next 是一个函数，表示放行 next()放行、next('/login') 强制跳转
-	if (to.path === '/login' || to.path === '/initpwd') return next() // 登录页直接放行
+	if (to.path === '/login' || to.path === '/initpwd' || to.path === '/roleerr') return next() // 登录页直接放行
 	// 获取token
 	const tokenStr = window.sessionStorage.getItem('token')
 	if (!tokenStr) return next('/login')
-	//不同角色访问守卫
 	
-	return next()
+	//不同角色访问守卫
+	const role_id = window.sessionStorage.getItem('role_id')
+	if(role_id == '2'){
+		if(to.path.indexOf('/teacher') == -1)
+			return next('/roleerr')
+	}else if(role_id == '3'){
+		if(to.path.indexOf('/stu') == -1)
+			return next('/roleerr')
+	}else if(role_id == '4'){
+		if(to.path.indexOf('/spv') == -1)
+			return next('/roleerr')
+	}
+	next()
 })
 
 export default router

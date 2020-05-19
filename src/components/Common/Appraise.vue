@@ -4,23 +4,23 @@
 		<el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item>可评价列表</el-breadcrumb-item>
 		</el-breadcrumb>
-		
+
 		<el-card class="box-card">
 			<!-- 搜索框 -->
 			<el-row>
 				<el-col :span="10">
-					<el-input placeholder="请输入搜索内容" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
-						<el-button slot="append" icon="el-icon-search" ></el-button>
+					<el-input placeholder="搜索老师名" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
+						<el-button slot="append" icon="el-icon-search"></el-button>
 					</el-input>
 				</el-col>
 			</el-row>
-			
+
 			<!-- 可评价课程列表区 -->
 			<el-table v-loading="loading" :data="appraiseList" style="width: 100%" stripe :header-cell-style="{'text-align':'center'}"
-			 :cell-style="{'text-align':'center'}">
-				<el-table-column prop="number" label="课程号" width="100">
+			 :cell-style="{'text-align':'center'}" ref="filterTable">
+				<el-table-column prop="number" label="课程号" width="100" sortable>
 				</el-table-column>
-				<el-table-column prop="courseDep" label="学院" width="150">
+				<el-table-column prop="courseDep" label="学院" width="150" column-key="courseDep" :filters="courseDepFilter" :filter-method="filterHandler">
 				</el-table-column>
 				<el-table-column prop="courseType" label="课程类别" width="220">
 				</el-table-column>
@@ -59,23 +59,24 @@
 					pageindex: 1, // 当前页码
 					pagesize: 5 // 当前每页多少条
 				},
-				searchKeyTxt: '' //搜索关键词
+				searchKeyTxt: '', //搜索关键词
+				courseDepFilter:[{
+					text: '计算机科学学院',
+					value: '计算机科学学院'
+				}, {
+					text: '美术学院',
+					value: '美术学院'
+				}],
+				
 			}
 		},
 		created() {
 			this.getAppraiseList()
 		},
 		methods: {
-			tableRowClassName({
-				row,
-				rowIndex
-			}) {
-				if (rowIndex === 1) {
-					return 'warning-row'
-				} else if (rowIndex === 3) {
-					return 'success-row'
-				}
-				return ''
+			filterHandler(value, row, column) {
+			        const property = column['property'];
+			        return row[property] === value;
 			},
 			//跳转到评价编辑页面
 			goComments(row) {
@@ -149,7 +150,7 @@
 					default:
 						break
 				}
-				this.$http.get('/evaluation'+ apistr, {
+				this.$http.get('/evaluation' + apistr, {
 						params: {
 							pageSize: this.pageinfo.pagesize,
 							startPage: this.pageinfo.pageindex
@@ -159,7 +160,7 @@
 						this.appraiseList = res.data.data.records
 						this.pageSum = res.data.data.total
 						let that = this
-						setTimeout(function(){
+						setTimeout(function() {
 							that.loading = false
 						}, 500)
 						// this.loading = false
@@ -170,12 +171,12 @@
 							message: '请求失败，请检查网络',
 							type: 'warning'
 						})
-						setTimeout(function(){
+						setTimeout(function() {
 							that.loading = false
 						}, 500)
 					})
 			},
-			
+
 		}
 	}
 </script>
@@ -184,6 +185,7 @@
 	.body {
 		margin: 0;
 	}
+
 	.el-breadcrumb {
 		margin-bottom: 15px;
 	}
@@ -193,10 +195,10 @@
 		margin-left: 15px;
 	}
 
-	
-	
-	.box-card{
-		.el-row{
+
+
+	.box-card {
+		.el-row {
 			margin-left: 12px;
 		}
 	}

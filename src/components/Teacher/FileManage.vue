@@ -11,13 +11,14 @@
 					<el-table-column label="姓名" prop="name"></el-table-column>
 					<el-table-column label="职称" prop="jobTitle"></el-table-column>
 					<el-table-column label="性别" prop="gender"></el-table-column>
-					<el-table-column label="身份ID" prop="idNumber"></el-table-column>
+					<el-table-column label="所在地" prop="region"></el-table-column>
+					<!-- <el-table-column label="身份ID" prop="idNumber"></el-table-column> -->
 				</el-table>
 				<el-table  :data='fileList' border :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 					<el-table-column label="学历" prop="degree"></el-table-column>
 					<el-table-column label="毕业学校" prop="graduateSchool"></el-table-column>
 					<el-table-column label="政治面貌" prop="politicalStatus"></el-table-column>
-					<el-table-column label="所在地" prop="region"></el-table-column>
+					
 				</el-table>
 				<el-table  :data='fileList' border :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 					<el-table-column label="出生日期" prop="birth"></el-table-column>
@@ -57,7 +58,7 @@
 			getTeacherFile() {
 				this.$http.get('/teacher/getTeacher')
 					.then(res => {
-						console.log(res.data)
+						// console.log(res.data)
 						this.fileList = []
 						this.fileList.push(res.data)
 						this.transFormat()
