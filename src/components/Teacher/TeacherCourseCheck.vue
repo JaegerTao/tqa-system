@@ -319,6 +319,9 @@
 </script>
 
 <style lang="less" scoped>
+	.body {
+		margin: 0;
+	}
 	.el-breadcrumb {
 		margin-bottom: 15px;
 	}

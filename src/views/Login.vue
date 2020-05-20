@@ -6,7 +6,7 @@
 				<img src="../assets/image/logoITElite.jpg" alt="">
 			</div>
 			<div class="title">
-				教学质量评估管理系统
+				教学质量评价系统
 			</div>
 			<!-- 登录表单 -->
 			<el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
@@ -140,12 +140,15 @@ export default {
 <style lang="less" scoped>
 	.login-container {
 		background-color: #2b4b6b;
+		background-image: url(../assets/image/seasun.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
 		height: 100%;
 	}
 
 	.login-box {
 		width: 50%;
-		height: 350px;
+		height: 375px;
 		background-color: #FFFFFF;
 		border: 3px;
 		border-radius: 25px;
@@ -153,7 +156,7 @@ export default {
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
-
+		background:  rgba(255, 255, 255, 0.8);
 		.avatar_box {
 			height: 130px;
 			width: 130px;
@@ -164,6 +167,7 @@ export default {
 			position: absolute;
 			left: 50%;
 			background-color: #FFFFFF;
+			background:  rgba(255, 255, 255, 0.8);
 			transform: translate(-50%, -50%);
 
 			img {
@@ -175,7 +179,11 @@ export default {
 		}
 
 		.title {
+			// border: 1px solid black;
 			position: absolute;
+			font-size: 30px;
+			font-family: 'Courier New', Courier, monospace;
+			font-weight: 1000;
 			left: 50%;
 			top: 100px;
 			transform: translate(-50%);

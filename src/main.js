@@ -13,9 +13,11 @@ Vue.prototype.$http = axios
 import md5 from 'js-md5'
 Vue.prototype.$md5 = md5
 
+//打印组件
 import Print from 'vue-print-nb'
 Vue.use(Print)
 
+//Echarts图标组件
 import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
