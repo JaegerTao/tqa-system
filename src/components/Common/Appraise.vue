@@ -9,8 +9,9 @@
 			<!-- 搜索框 -->
 			<el-row>
 				<el-col :span="10">
-					<el-input placeholder="搜索课程名" v-model="searchKeyTxt" clearable @clear="getAppraiseList()">
-						<el-button slot="append" icon="el-icon-search" @click="searchCourse"></el-button>
+					<el-input placeholder="搜索课程名" v-model="searchKeyTxt" clearable @clear="getAppraiseList()" maxlength="10"
+					 show-word-limit>
+						<el-button slot="append" icon="el-icon-search" @click="searchCourse()"></el-button>
 					</el-input>
 				</el-col>
 			</el-row>
@@ -20,7 +21,8 @@
 			 :cell-style="{'text-align':'center'}" ref="filterTable">
 				<el-table-column prop="number" label="课程号" width="100" sortable>
 				</el-table-column>
-				<el-table-column prop="courseDep" label="学院" width="150" column-key="courseDep" :filters="courseDepFilter" :filter-method="filterHandler">
+				<el-table-column prop="courseDep" label="学院" width="150" column-key="courseDep" :filters="courseDepFilter"
+				 :filter-method="filterHandler">
 				</el-table-column>
 				<el-table-column prop="courseType" label="课程类别" width="220">
 				</el-table-column>
@@ -60,14 +62,14 @@
 					pagesize: 5 // 当前每页多少条
 				},
 				searchKeyTxt: '', //搜索关键词
-				courseDepFilter:[{
+				courseDepFilter: [{
 					text: '计算机科学学院',
 					value: '计算机科学学院'
 				}, {
 					text: '美术学院',
 					value: '美术学院'
 				}],
-				
+
 			}
 		},
 		created() {
@@ -75,8 +77,8 @@
 		},
 		methods: {
 			filterHandler(value, row, column) {
-			        const property = column['property'];
-			        return row[property] === value;
+				const property = column['property'];
+				return row[property] === value;
 			},
 			//跳转到评价编辑页面
 			goComments(row) {
@@ -133,7 +135,8 @@
 				this.getAppraiseList()
 			},
 			//搜索词搜索
-			searchCourse(){
+			searchCourse() {
+				if(this.searchKeyTxt == '') return
 				this.getAppraiseList()
 			},
 			//获取可评价课程列表
@@ -153,9 +156,10 @@
 					default:
 						break
 				}
+				let searchKey = this.strfilter(this.searchKeyTxt)
 				this.$http.get('/evaluation' + apistr, {
 						params: {
-							courseName: this.searchKeyTxt,
+							courseName: searchKey,
 							pageSize: this.pageinfo.pagesize,
 							startPage: this.pageinfo.pageindex
 						}
@@ -180,7 +184,15 @@
 						}, 500)
 					})
 			},
-
+			//过滤xss
+			strfilter(s) {
+				var pattern = new RegExp("[%--`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]") //格式 RegExp("[在中间定义特殊过滤字符]")
+				var rs = "";
+				for (var i = 0; i < s.length; i++) {
+					rs = rs + s.substr(i, 1).replace(pattern, '');
+				}
+				return rs;
+			}
 		}
 	}
 </script>

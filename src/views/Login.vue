@@ -26,6 +26,9 @@
 				</el-form-item>
 			</el-form>
 		</div>
+		<!-- <div class="goSearchPage">
+			<span @click="goSearchPage">搜索页</span>
+		</div> -->
 	</div>
 </template>
 
@@ -43,12 +46,12 @@ export default {
         // 验证用户名是否合法
         username: [
           { required: true, message: '请输入用户账号', trigger: 'blur' },
-          { min: 2, max: 12, message: '请输入正确的账号', trigger: 'blur' }
+          { min: 5, max: 12, message: '请输入正确的账号', trigger: 'blur' }
         ],
         // 验证密码是否合法
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 3, message: '密码最少6位', trigger: 'blur' }
+          { min: 6, message: '密码最少6位', trigger: 'blur' }
         ]
       },
 	  //构建需要提交的登录对象
@@ -101,11 +104,13 @@ export default {
 				const username = res.data.username
 				// console.log(role_id, username)
 				window.sessionStorage.setItem('username', res.data.username)
-				window.sessionStorage.setItem('role_id', res.data.role_id)
-				
+				window.sessionStorage.setItem('role_id', this.$md5(res.data.role_id))
+				// console.log(2, this.$md5('2'))
+				// console.log(3, this.$md5('3'))
+				// console.log(4, this.$md5('4'))
 				this.$message.success('登录成功')
 				// 服务器传回token，保存到sessionStorage(会话期间存储),只在当前网站打开期间生效
-				window.sessionStorage.setItem('token', role_id+username)
+				window.sessionStorage.setItem('token', this.$md5(role_id+username))
 				
 				if (role_id == '2') {
 				  this.$router.push('/teacherhome')
@@ -130,9 +135,12 @@ export default {
 	//忘记密码
 	forgetPwd(){
 		this.$router.push('/initpwd')
+	},
+	
+	//goSearchPage跳转到搜索页
+	goSearchPage(){
+		this.$router.push('/search')
 	}
-	
-	
   }
 }
 </script>
@@ -202,5 +210,18 @@ export default {
 	.btns {
 		display: flex;
 		justify-content: flex-end;
+	}
+	
+	.goSearchPage{
+		// border: 1px solid white;
+		position: absolute;
+		left: 95%;
+		top: 2%;
+		
+		span{
+			color: #bcbcbc;
+			text-decoration: underline;
+			cursor: pointer;
+		}
 	}
 </style>

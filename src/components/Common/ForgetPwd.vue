@@ -5,12 +5,12 @@
 				<div class="avatar_box">
 					<img src="../../assets/image/logoITElite.jpg" alt="" />
 				</div>
-				<span> 教学质量评估系统-初始化密码 </span>
+				<span> 教学质量评估系统-找回密码 </span>
 			</div>
 		</el-header>
-		<el-container class="main-container">
+		<el-main class="main-container">
 			<el-card>
-				<span class="title"> 初始化密码 </span>
+				<span class="title"> 找回密码 </span>
 				<el-form ref="initFormRef" :model="initForm" :rules="initFormRules" label-position="right" label-width="80px">
 					<el-form-item label="学/工号" prop="username">
 						<el-input placeholder="请输入学/工号" v-model="initForm.username"></el-input>
@@ -33,7 +33,7 @@
 					<el-button type="info" @click='goLogin()'>返回登录页</el-button>
 				</div>
 			</el-card>
-		</el-container>
+		</el-main>
 		<el-footer height="5%">
 			<span>Made by Team 4 : JaegerTao</span>
 			<span>初始化密码</span>
@@ -141,7 +141,7 @@
 	.el-header {
 		background-color: #55557f;
 		border-radius: 0px 0px 10px 10px;
-		box-shadow: 10px 10px 5px #e2e2e2;
+		// box-shadow: 10px 10px 5px #e2e2e2;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -194,16 +194,26 @@
 
 	.home-container {
 		height: 100%;
+		background-image: url(../../assets/image/seasun.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 
 	.main-container {
 		height: 80%;
 		margin-top: 10px;
 		margin-bottom: 10px;
+		// background-image: url(../../assets/image/seasun.jpg);
+		// background-repeat: no-repeat;
+		// background-size: cover;
 	}
 
 	.el-card {
-		width: 100%;
+		background: rgba(255, 255, 255, 0.5);
+		// border: none;
+		width: 60%;
+		margin-left: 50%;
+		transform: translate(-50%);
 	}
 
 	.title {
@@ -212,6 +222,8 @@
 		margin-left: 50%;
 		transform: translate(-50%);
 		font-size: 30px;
+		font-family: 'Courier New', Courier, monospace;
+		font-weight: 1000;
 	}
 
 	.el-input {

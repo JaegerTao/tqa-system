@@ -6,7 +6,7 @@
 			<el-breadcrumb-item :to="{path: '/teacher/teachercourse' }">课程列表</el-breadcrumb-item>
 			<el-breadcrumb-item>评价详情</el-breadcrumb-item>
 		</el-breadcrumb>
-
+		<!-- 课程信息展示 -->
 		<el-table class="table-classinfo" :data="courseCheckItem" border style="width: 90%" size="mini" :header-cell-style="{'text-align':'center'}"
 		 :cell-style="{'text-align':'center'}">
 			<el-table-column prop="number" label="课程号" width="100">
@@ -26,7 +26,8 @@
 			<el-table-column prop="teacher.name" label="任课教师">
 			</el-table-column>
 		</el-table>
-
+		
+		<!-- 评分展示 -->
 		<el-tabs v-loading='loading' v-model="activeName" type="border-card">
 
 			<el-tab-pane label="总体情况" name="totalappraise">
@@ -201,6 +202,8 @@
 		},
 		created() {
 			this.getCheckCourseItem()
+		},
+		mounted() {
 			this.initList()
 		},
 		methods: {
@@ -221,7 +224,10 @@
 				this.loading = true
 				await this.getAppraiseList()
 				await this.getSummaryEva()
-				this.loading = false
+				let that = this
+				setTimeout(function(){
+					that.loading = false
+				}, 400)
 			},
 			getAppraiseList() {
 				this.$http.get('/evaluationItem/list?rid=2')

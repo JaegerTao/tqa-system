@@ -8,13 +8,13 @@
 				<span> 教学质量评估-教师端 </span>
 			</div>
 			<div class="header-name">
-				<span>ID:{{ name + ' '}}</span> <span>您好，老师</span>
+				<span>老师您好，ID:{{ name + ' '}}</span>
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
 		</el-header>
-		<el-container class="main-container">
+		<el-container class="main-container" >
 			<!-- 侧边栏 -->
-			<el-aside width="15%">
+			<el-aside width="15%" :style="bgid ==1 ? '':'background:'">
 				<!-- 侧边栏菜单 -->
 				<el-menu router :default-active="activePath">
 					<el-menu-item index="/teacher/filemanager" @click="saveNavState('/teacher/filemanager')">
@@ -41,8 +41,8 @@
 			</el-main>
 		</el-container>
 		<el-footer height="5%">
-			<span>Made by Team 4 : JaegerTao</span>
-			<span>教师端</span>
+			<span>Made by Team 4 : JaegerTao <span class="goSearchPage" @click="goSearchPage"> 搜索页</span></span>
+			<span>教师端  </span>
 		</el-footer>
 	</el-container>
 </template>
@@ -53,7 +53,8 @@
 			return {
 				pathheader: '/teacher',
 				name: '',
-				activePath: '/teacher/filemanager' // 被激活的路由地址
+				activePath: '/teacher/filemanager' ,// 被激活的路由地址
+				bgid: 1,//页面背景id
 			}
 		},
 		created() {
@@ -76,6 +77,16 @@
 			saveNavState(activePath) {
 				window.sessionStorage.setItem('activePath', activePath)
 				this.activePath = activePath
+			},
+			//切换背景
+			// changeBg(){
+			// 	this.bgid = 2
+			// }
+			
+			//goSearchPage跳转到搜索页
+			goSearchPage(){
+				// console.log('goSearchPage')
+				this.$router.push('/search')
 			}
 		}
 
@@ -101,6 +112,7 @@
 				color: #ffffff;
 				height: 30px;
 				overflow: hidden;
+				font-family: 'Courier New', Courier, monospace;
 			}
 		}
 
@@ -108,7 +120,7 @@
 			align-items: center;
 
 			span {
-				font-size: 20px;
+				font-size: 17px;
 				color: #ffffff;
 				margin-right: 30px;
 				height: 30px;
@@ -158,8 +170,25 @@
 	}
 
 	.el-aside {
+		background:  rgba(255, 255, 255, 0.8);
 		.el-menu {
 			height: 100%;
 		}
+	}
+	
+	.changeBg2{
+		background-image: url(../../assets/image/seasun.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.changeBg1{
+		
+	}
+	
+	.goSearchPage{
+		font-size: 15px;
+		color: #bcbcbc;
+		text-decoration: underline;
+		cursor: pointer;
 	}
 </style>

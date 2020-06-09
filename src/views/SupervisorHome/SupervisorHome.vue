@@ -8,7 +8,7 @@
 				<span> 教学质量评估-教学督导 </span>
 			</div>
 			<div class="header-name">
-				<span>您好，{{ name }}老师</span>
+				<span>老师您好，ID：{{ name }}</span>
 				<el-button type="info" @click="changePage">{{btnTxt}}</el-button>
 				<el-button type="info" @click="logout">退出登录</el-button>
 			</div>
@@ -20,7 +20,7 @@
 		</el-main>
 
 		<el-footer height="5%">
-			<span>Made by Team 4 : JaegerTao</span>
+			<span>Made by Team 4 : JaegerTao <span class="goSearchPage" @click="goSearchPage"> 搜索页</span></span>
 			<span>督导端</span>
 		</el-footer>
 	</el-container>
@@ -67,6 +67,11 @@
 			},
 			appraise() {
 				this.$router.push('/spv/appraise');
+			},
+			//goSearchPage跳转到搜索页
+			goSearchPage(){
+				// console.log('goSearchPage')
+				this.$router.push('/search')
 			}
 		},
 		
@@ -94,6 +99,7 @@
 			span {
 				margin-left: 20px;
 				font-size: 25px;
+				font-family: 'Courier New', Courier, monospace;
 				color: #ffffff;
 				height: 30px;
 				overflow: hidden;
@@ -102,7 +108,7 @@
 		.header-name {
 			align-items: center;
 			> span {
-				font-size: 20px;
+				font-size: 17px;
 				color: #ffffff;
 				margin-right: 30px;
 				height: 30px;
@@ -153,5 +159,12 @@
 
 	.home-container{
 		height: 100%;
+	}
+	
+	.goSearchPage{
+		font-size: 15px;
+		color: #bcbcbc;
+		text-decoration: underline;
+		cursor: pointer;
 	}
 </style>

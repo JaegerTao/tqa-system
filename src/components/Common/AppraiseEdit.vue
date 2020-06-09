@@ -63,7 +63,8 @@
 						</el-col>
 						<el-col :span="12">
 							<el-form-item prop="textarea">
-								<el-input type="textarea" rows="3" placeholder="请输入您对课程的建议(选填)" v-model="optionForm.advicetxt"></el-input>
+								<el-input type="textarea" rows="3" placeholder="请输入您对课程的建议(选填)" v-model="optionForm.advicetxt" maxlength="150"
+								 show-word-limit></el-input>
 							</el-form-item>
 						</el-col>
 					</el-row>
@@ -130,6 +131,7 @@
 			submitAdvice() {
 				this.$refs.optionFormRef.validate(valid => {
 					if (!valid) return // 验证不通过
+					// 验证通过
 					if (this.optionForm.scores.length < this.commentData.length) {
 						this.$message.error('请选完选项哦')
 						return
@@ -181,7 +183,7 @@
 			//构造提交表单
 			madeEvajson() {
 				let evajson = {}
-				evajson.advice = this.optionForm.advicetxt //建议
+				evajson.advice = this.strfilter(this.optionForm.advicetxt) //建议
 				evajson.courseId = this.courseid //被评价课程id
 				evajson.fromId = null //评价人id
 				evajson.individualId = null //互评id
@@ -211,6 +213,15 @@
 
 				console.log(evajson)
 				return evajson
+			},
+			//过滤xss
+			strfilter(s) {
+				var pattern = new RegExp("[%--`~!@#$^&*=|{}''\\[\\].<>/~@#￥……&*——|{}]") //格式 RegExp("[在中间定义特殊过滤字符]"
+				var rs = "";
+				for (var i = 0; i < s.length; i++) {
+					rs = rs + s.substr(i, 1).replace(pattern, '');
+				}
+				return rs;
 			}
 		}
 
@@ -218,9 +229,10 @@
 </script>
 
 <style lang="less" scoped>
-	.el-breadcrumb{
+	.el-breadcrumb {
 		margin-bottom: 15px;
 	}
+
 	.table-classinfo {
 		margin-left: 50%;
 		margin-bottom: 15px;

@@ -37,6 +37,7 @@
 			        }
 			      };
 			return {
+				//输入表单
 				updataPwdForm: {
 					username: '',
 					idnumber: '',
